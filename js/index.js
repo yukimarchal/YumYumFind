@@ -15,7 +15,6 @@ window.joueur = joueur
 
 const gameloop = () => {
     GameZone.clear()
-    map1.update()
     joueur.update()
 }
 
