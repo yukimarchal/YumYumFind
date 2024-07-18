@@ -19,23 +19,31 @@ const gameloop = () => {
     GameZone.clear()
     map1.update()
     joueur.update()
-    life.update()
-    inventory.update()
 }
 
+let keysPressed = {}
 const arrowkey = (e) => {
-    if (e.key === "ArrowDown" && !map1.wallIsPresent(joueur.x, joueur.y+1))
-        joueur.move(0,1)
-    else if (e.key === "ArrowUp" && !map1.wallIsPresent(joueur.x, joueur.y-1))
-        joueur.move(0,-1)
-    else if (e.key === "ArrowLeft"  && !map1.wallIsPresent(joueur.x-1, joueur.y))
-        joueur.move(-1,0)
-    else if (e.key === "ArrowRight" && !map1.wallIsPresent(joueur.x+1, joueur.y))
-        joueur.move(1,0)
+    keysPressed[e.key] = true
+
+    let dx = 0, dy = 0;
+    for (let prop in keysPressed) {
+        if (prop === "ArrowDown")
+            dy += 1
+        else if (prop === "ArrowUp")
+            dy -= 1
+        else if (prop === "ArrowLeft")
+            dx -= 1
+        else if (prop === "ArrowRight")
+            dx += 1
+    }
+
+    if (!map1.wallIsPresent(joueur.x+dx, joueur.y+dy))
+        joueur.move(dx,dy)
 }
 
-window.addEventListener('DOMContentLoaded', () => setInterval(gameloop, 400))
+window.addEventListener('DOMContentLoaded', () => setInterval(gameloop, 100))
 window.addEventListener('resize', GameZone.init)
 window.addEventListener('keydown', arrowkey)
+window.addEventListener('keyup', (e) => delete keysPressed[e.key])
 
 export { joueur }
