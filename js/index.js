@@ -3,11 +3,9 @@ import { Character } from "./Character.js";
 import { Map } from "./Map.js"
 import {Life} from "./Life.js";
 import {Inventory} from "./Inventory.js";
-import {initSprite} from "./CharacterSpriteIdle.js";
 
 
 GameZone.init()
-initSprite()
 const map1 = new Map("assets/testmap.svg", "assets/map_collision.svg")
 const joueur = new Character();
 const life = new Life()
