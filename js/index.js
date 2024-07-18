@@ -21,21 +21,16 @@ const gameloop = () => {
     joueur.update()
 }
 
-let keysPressed = {}
 const arrowkey = (e) => {
-    keysPressed[e.key] = true
-
     let dx = 0, dy = 0;
-    for (let prop in keysPressed) {
-        if (prop === "ArrowDown")
-            dy += 1
-        else if (prop === "ArrowUp")
-            dy -= 1
-        else if (prop === "ArrowLeft")
-            dx -= 1
-        else if (prop === "ArrowRight")
-            dx += 1
-    }
+    if (e.key === "ArrowDown")
+        dy += 1
+    else if (e.key === "ArrowUp")
+        dy -= 1
+    else if (e.key === "ArrowLeft")
+        dx -= 1
+    else if (e.key === "ArrowRight")
+        dx += 1
 
     if (!map1.wallIsPresent(joueur.x+dx, joueur.y+dy))
         joueur.move(dx,dy)
@@ -44,6 +39,5 @@ const arrowkey = (e) => {
 window.addEventListener('DOMContentLoaded', () => setInterval(gameloop, 100))
 window.addEventListener('resize', GameZone.init)
 window.addEventListener('keydown', arrowkey)
-window.addEventListener('keyup', (e) => delete keysPressed[e.key])
 
 export { joueur }
