@@ -62,7 +62,7 @@ export class Character {
         let position_y = window.innerHeight/2/GameZone.decal
 
         let longueur_sprite = 64
-        let hauteur_sprite = 32
+        let hauteur_sprite = 64
 
         let debut_sprite_x = 64*(this.cpt%nbframe)
         let debut_sprite_y = 0
