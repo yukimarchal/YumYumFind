@@ -10,10 +10,6 @@ export class Map {
     loadMap(src) {
         this.map = new Image()
         this.map.src = src
-        this.map.onload = () => {
-            let ctx = GameZone.context
-            ctx.drawImage(this.map, 0, 0)
-        }
     }
 
     loadCollisionMap(src) {
@@ -52,7 +48,8 @@ export class Map {
     }
 
     update() {
-        let ctx = GameZone.context
-        ctx.drawImage(this.map, 0-joueur.x*GameZone.decal+window.innerWidth/2/GameZone.decal, 0-joueur.y*GameZone.decal+window.innerHeight/2/GameZone.decal)
+        let x = joueur.x*GameZone.decal
+        let y = joueur.y*GameZone.decal
+        GameZone.canvas.style.backgroundPosition = `${-x}px ${-y}px`;
     }
 }

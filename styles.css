@@ -9,4 +9,8 @@ body {
 
 canvas {
     background-color: #458aff;
+    background-image: url("assets/testmap.svg");
+    background-repeat: no-repeat;
+    background-size: 80%;
+    transition: background-position 0.1s ease-out;
 }
