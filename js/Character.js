@@ -1,5 +1,9 @@
 import { GameZone } from "./Gamezone.js";
-import { deplacement } from "./index.js";
+
+const ATTACK = "attack"
+const HIT = "hit"
+const IDLE = "idle"
+const WALK = "walk"
 
 export class Character {
     sprites= {
@@ -16,50 +20,48 @@ export class Character {
             "right": "assets/sprite/walk/right.svg",
         },
         "attack": {
-            "front": undefined,
-            "back" : undefined,
-            "left" : undefined,
-            "right": undefined,
+            "front": "assets/sprite/attack/front.svg",
+            "back" : "assets/sprite/attack/back.svg",
+            "left" : "assets/sprite/attack/left.svg",
+            "right": "assets/sprite/attack/right.svg",
         },
         "hit": {
-            "front": undefined,
-            "back" : undefined,
-            "left" : undefined,
-            "right": undefined,
+            "front": "assets/sprite/hit/front.svg",
+            "back" : "assets/sprite/hit/back.svg",
+            "left" : "assets/sprite/hit/left.svg",
+            "right": "assets/sprite/hit/right.svg",
         }
     }
-
 
     constructor() {
         this.maxhp = 11
         this.hp = this.maxhp
-        this.x = 14
-        this.y = 34
+        // this.x = 11
+        // this.y = 7
+        this.x = 0
+        this.y = 0
         this.cpt = 0
+
         this.lastmovement = "front"
+        this.action = IDLE
 
         for (let category in this.sprites) {
             for (let direction in this.sprites[category]) {
                 let path = this.sprites[category][direction]
                 let tmp = new Image()
                 tmp.src = path
-                tmp.onload = () => this.update()
                 this.sprites[category][direction] = tmp
             }
         }
         window.sprites = this.sprites
-
-        console.log()
     }
 
     update() {
         let ctx = GameZone.context
+        let nbframe = this.sprites[this.action]["front"].width/64
 
-        let action = (deplacement) ? "walk" : "idle"
-        let nbframe = this.sprites[action]["front"].width/64
-
-        let position_x = window.innerWidth/2/GameZone.decal
-        let position_y = window.innerHeight/2/GameZone.decal
+        let position_x = (window.innerWidth/2/4)-32
+        let position_y = (window.innerHeight/2/4)-32
 
         let longueur_sprite = 64
         let hauteur_sprite = 64
@@ -67,11 +69,24 @@ export class Character {
         let debut_sprite_x = 64*(this.cpt%nbframe)
         let debut_sprite_y = 0
 
-        ctx.drawImage(this.sprites[action][this.lastmovement], debut_sprite_x, debut_sprite_y, longueur_sprite, hauteur_sprite, position_x, position_y, longueur_sprite, hauteur_sprite)
+        ctx.drawImage(this.sprites[this.action][this.lastmovement], debut_sprite_x, debut_sprite_y, longueur_sprite, hauteur_sprite, position_x, position_y, longueur_sprite, hauteur_sprite)
         this.cpt++
+
+
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = 'red';
+        ctx.strokeRect(position_x, position_y, longueur_sprite, hauteur_sprite);
+
+        if ((this.action === ATTACK || this.action === HIT) && this.cpt%nbframe === nbframe-1) {
+            this.stopaction()
+        }
     }
 
+
     move(dx,dy) {
+        if (this.action === ATTACK || this.action === HIT) return
+
+        this.action = WALK
         this.x += dx;
         this.y += dy;
 
@@ -83,5 +98,19 @@ export class Character {
             this.lastmovement = "back"
         else if (dy > 0)
             this.lastmovement = "front"
+    }
+
+    attack() {
+        this.action = ATTACK
+        this.cpt = 0
+    }
+
+    hit() {
+        this.action = HIT
+        this.cpt = 0
+    }
+
+    stopaction() {
+        this.action = IDLE
     }
 }

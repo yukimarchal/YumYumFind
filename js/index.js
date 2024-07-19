@@ -1,15 +1,10 @@
 import { GameZone } from "./Gamezone.js";
 import { Character } from "./Character.js";
 import { Map } from "./Map.js"
-import {Life} from "./Life.js";
-import {Inventory} from "./Inventory.js";
-
 
 GameZone.init()
 const map1 = new Map("assets/testmap.svg", "assets/map_collision.svg")
 const joueur = new Character();
-const life = new Life()
-const inventory = new Inventory()
 
 window.joueur = joueur
 
@@ -19,27 +14,31 @@ const gameloop = () => {
     joueur.update()
 }
 
-let deplacement = false
 const arrowkey = (e) => {
-    deplacement = true
+    if (e.code.startsWith("Arrow")) {
+        let dx = 0, dy = 0;
+        if (e.code === "ArrowDown")
+            dy += 1
+        else if (e.code === "ArrowUp")
+            dy -= 1
+        else if (e.code === "ArrowLeft")
+            dx -= 1
+        else if (e.code === "ArrowRight")
+            dx += 1
 
-    let dx = 0, dy = 0;
-    if (e.key === "ArrowDown")
-        dy += 1
-    else if (e.key === "ArrowUp")
-        dy -= 1
-    else if (e.key === "ArrowLeft")
-        dx -= 1
-    else if (e.key === "ArrowRight")
-        dx += 1
-
-    if (!map1.wallIsPresent(joueur.x+dx, joueur.y+dy))
-        joueur.move(dx,dy)
+        if (!map1.wallIsPresent(joueur.x+dx, joueur.y+dy))
+            joueur.move(dx,dy)
+    }
+    else if (e.code === "Space") {
+        joueur.attack()
+    }
 }
 
 window.addEventListener('DOMContentLoaded', () => setInterval(gameloop, 100))
 window.addEventListener('resize', GameZone.init)
 window.addEventListener('keydown', arrowkey)
-window.addEventListener('keyup', () => deplacement = false)
+window.addEventListener('keyup', (e) => {
+    if (e.code.startsWith("Arrow")) joueur.stopaction()
+})
 
-export { joueur, deplacement }
+export { joueur }

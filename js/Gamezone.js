@@ -1,5 +1,5 @@
 export class GameZone {
-    static decal = 8
+    static decal = 16
     static canvas = document.getElementById("canvas")
     static context = GameZone.canvas.getContext('2d')
 

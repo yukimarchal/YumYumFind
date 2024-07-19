@@ -4,7 +4,7 @@ import { joueur } from "./index.js";
 export class Map {
     constructor(map, collision) {
         this.loadMap(map)
-        this.loadCollisionMap(collision)
+        //this.loadCollisionMap(collision)
     }
 
     loadMap(src) {
@@ -48,8 +48,14 @@ export class Map {
     }
 
     update() {
-        let x = joueur.x*GameZone.decal
-        let y = joueur.y*GameZone.decal
-        GameZone.canvas.style.backgroundPosition = `${-x}px ${-y}px`;
+        let ctx = GameZone.context
+        let x = joueur.x*GameZone.decal+window.innerWidth/2/GameZone.decal
+        let y = joueur.y*GameZone.decal+window.innerHeight/2/GameZone.decal
+
+        ctx.drawImage(this.map, -x, -y)
+
+        ctx.font = "8px Arial";
+        ctx.fillText(`jx ${joueur.x} | jy ${joueur.y}`, 10, 15)
+        ctx.fillText(`mx ${x} | my ${y}`, 10, 25)
     }
 }
