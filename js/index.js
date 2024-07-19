@@ -15,10 +15,14 @@ window.joueur = joueur
 
 const gameloop = () => {
     GameZone.clear()
+    map1.update()
     joueur.update()
 }
 
+let deplacement = false
 const arrowkey = (e) => {
+    deplacement = true
+
     let dx = 0, dy = 0;
     if (e.key === "ArrowDown")
         dy += 1
@@ -36,5 +40,6 @@ const arrowkey = (e) => {
 window.addEventListener('DOMContentLoaded', () => setInterval(gameloop, 100))
 window.addEventListener('resize', GameZone.init)
 window.addEventListener('keydown', arrowkey)
+window.addEventListener('keyup', () => deplacement = false)
 
-export { joueur }
+export { joueur, deplacement }
