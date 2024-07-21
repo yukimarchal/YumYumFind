@@ -36,10 +36,8 @@ export class Character {
     constructor() {
         this.maxhp = 11
         this.hp = this.maxhp
-        // this.x = 11
-        // this.y = 7
-        this.x = 0
-        this.y = 0
+        this.x = 14
+        this.y = 34
         this.cpt = 0
 
         this.lastmovement = "front"
@@ -60,8 +58,11 @@ export class Character {
         let ctx = GameZone.context
         let nbframe = this.sprites[this.action]["front"].width/64
 
-        let position_x = (window.innerWidth/2/4)-32
-        let position_y = (window.innerHeight/2/4)-32
+        let correction_position_x = -24
+        let correction_position_y = -32
+
+        let position_x = Math.floor(Math.floor((GameZone.canvas.width / 4) / 2) / 16) * 16 + correction_position_x
+        let position_y = Math.floor(Math.floor((GameZone.canvas.height / 4) / 2) / 16) * 16 + correction_position_y
 
         let longueur_sprite = 64
         let hauteur_sprite = 64
@@ -71,11 +72,6 @@ export class Character {
 
         ctx.drawImage(this.sprites[this.action][this.lastmovement], debut_sprite_x, debut_sprite_y, longueur_sprite, hauteur_sprite, position_x, position_y, longueur_sprite, hauteur_sprite)
         this.cpt++
-
-
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = 'red';
-        ctx.strokeRect(position_x, position_y, longueur_sprite, hauteur_sprite);
 
         if ((this.action === ATTACK || this.action === HIT) && this.cpt%nbframe === nbframe-1) {
             this.stopaction()
