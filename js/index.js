@@ -34,11 +34,18 @@ const arrowkey = (e) => {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => setInterval(gameloop, 100))
-window.addEventListener('resize', GameZone.init)
-window.addEventListener('keydown', arrowkey)
-window.addEventListener('keyup', (e) => {
-    if (e.code.startsWith("Arrow")) joueur.stopaction()
+window.addEventListener('load', () => {
+    document.getElementById("loader").classList.add("hidden")
+    GameZone.canvas.classList.remove("hidden")
+
+    setInterval(gameloop, 100)
+    window.addEventListener('keydown', arrowkey)
+    window.addEventListener('keyup', (e) => {
+        if (e.code.startsWith("Arrow")) joueur.stopaction()
+    })
 })
+
+window.addEventListener('resize', GameZone.init)
+
 
 export { joueur }

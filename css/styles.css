@@ -5,12 +5,18 @@ html, body {
 
 body {
     overflow: hidden;
+    background-color: #458aff;
 }
 
 canvas {
-    background-color: #458aff;
     /*background-image: url("assets/testmap.svg");*/
     /*background-repeat: no-repeat;*/
     /*!*background-size: calc(88px);*!*/
     /*transition: background-position 0.1s ease-out;*/
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
+#canvas.hidden {
+    opacity: 0;
 }
