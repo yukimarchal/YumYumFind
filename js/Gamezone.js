@@ -7,7 +7,7 @@ export class GameZone {
     static init = () => {
         this.canvas.width = window.innerWidth
         this.canvas.height = window.innerHeight
-        this.context.scale(4,4)
+        this.context.scale(this.scale,this.scale)
     }
 
     static clear = () => {
