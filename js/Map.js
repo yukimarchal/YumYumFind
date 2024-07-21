@@ -50,8 +50,8 @@ export class Map {
     update() {
         let ctx = GameZone.context
 
-        let x = joueur.x*16 - Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / 16) * 16
-        let y = joueur.y*16 - Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / 16) * 16
+        let x = joueur.x*GameZone.pixel - Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel
+        let y = joueur.y*GameZone.pixel - Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel
         ctx.drawImage(this.map, -x, -y)
 
         ctx.font = "8px Arial";
