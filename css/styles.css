@@ -8,13 +8,10 @@ body {
     background-color: #458aff;
 }
 
-canvas {
-    /*background-image: url("assets/testmap.svg");*/
-    /*background-repeat: no-repeat;*/
-    /*!*background-size: calc(88px);*!*/
-    /*transition: background-position 0.1s ease-out;*/
+#canvas {
+    background-repeat: no-repeat;
     opacity: 1;
-    transition: opacity 1s ease-in;
+    transition: opacity 1s ease-in, background-position 0.1s ease-out;
 }
 
 #canvas.hidden {

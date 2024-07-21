@@ -8,8 +8,21 @@ export class Map {
     }
 
     loadMap(src) {
-        this.map = new Image()
-        this.map.src = src
+        let map = new Image()
+        map.src = src
+        map.onload = () => {
+            let tmpcan = document.getElementById('hiddencanvas')
+            tmpcan.width = map.width*4
+            tmpcan.height = map.height*4
+
+            let ctx = tmpcan.getContext('2d')
+            ctx.scale(GameZone.scale, GameZone.scale)
+            ctx.drawImage(map, 0, 0)
+
+            GameZone.canvas.style.backgroundImage = `url(${tmpcan.toDataURL()})`
+            ctx.clearRect(0,0,tmpcan.width,tmpcan.height)
+        }
+
     }
 
     loadCollisionMap(src) {
@@ -17,6 +30,7 @@ export class Map {
         tmpcol.src = src
         tmpcol.onload = () => {
             let tmpcan = document.getElementById('hiddencanvas')
+            tmpcan.scale(1, 1)
             tmpcan.width = tmpcol.width
             tmpcan.height = tmpcol.height
 
@@ -48,14 +62,9 @@ export class Map {
     }
 
     update() {
-        let ctx = GameZone.context
-
         let x = joueur.x*GameZone.pixel - Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel
         let y = joueur.y*GameZone.pixel - Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel
-        ctx.drawImage(this.map, -x, -y)
-
-        ctx.font = "8px Arial";
-        ctx.fillText(`jx ${joueur.x} | jy ${joueur.y}`, 10, 15)
-        ctx.fillText(`mx ${x} | my ${y}`, 10, 25)
+        GameZone.canvas.style.backgroundPositionX = `${-x*GameZone.scale}px`
+        GameZone.canvas.style.backgroundPositionY = `${-y*GameZone.scale}px`
     }
 }
