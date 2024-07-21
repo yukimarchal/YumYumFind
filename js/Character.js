@@ -61,8 +61,8 @@ export class Character {
         let correction_position_x = -24
         let correction_position_y = -32
 
-        let position_x = Math.floor(Math.floor((GameZone.canvas.width / 4) / 2) / 16) * 16 + correction_position_x
-        let position_y = Math.floor(Math.floor((GameZone.canvas.height / 4) / 2) / 16) * 16 + correction_position_y
+        let position_x = Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / 16) * 16 + correction_position_x
+        let position_y = Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / 16) * 16 + correction_position_y
 
         let longueur_sprite = 64
         let hauteur_sprite = 64
