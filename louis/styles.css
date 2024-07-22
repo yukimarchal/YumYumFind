@@ -1,0 +1,31 @@
+*{
+    box-sizing: border-box;
+}
+
+
+body{
+    background: #333;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+/* 
+    taille de l'ecrand de jeux modifiable independament 
+    margin pour center l'ecrand 
+    marging top pour désendre l'écrand     
+*/
+/* transform pour changer la taille de l'écrand l'agrandir et on le translate Y pour que il sois dans la page html il ets un peut comme out of the box si on le met pas */
+.game-container{
+    position: relative;
+    width: 352px;
+    height: 198px;
+    margin: 0 auto;
+    
+    outline: 1px solid white;
+
+    transform: scale(3) translateY(50%);
+}
+/* meilleur caliter des pixel plus clean */
+.game-container canvas {
+    image-rendering: pixelated;
+}
