@@ -1,10 +1,9 @@
 import { GameZone } from "./Gamezone.js"
 import { Player } from "./Player.js"
 import { Monster } from "./Monster.js"
-import { Map } from "./Map.js"
+import { Map } from "./Map.js";
 
-GameZone.init()
-const map1 = new Map("assets/map/map.svg", "assets/map/map_collision.svg")
+const map = new Map("assets/map/map.svg", "assets/map/map_collision.svg")
 const joueur = new Player()
 const gobelin = new Monster({
     "idle": {
@@ -35,6 +34,7 @@ const slime = new Monster({
     }
 }, -24, -27)
 
+GameZone.init(map, joueur, [gobelin, slime])
 
 window.joueur = joueur
 window.gobelin = gobelin
@@ -51,69 +51,15 @@ slime.x = 15
 slime.y = 14
 slime.direction = "left"
 
-const gameloop = () => {
-    GameZone.clear()
-    map1.update()
-
-    if (window.grid)
-        drawGrid(GameZone.pixel, GameZone.context, GameZone.canvas)
-
-    gobelin.update()
-    slime.update()
-    joueur.update()
-}
-
-const arrowkey = (e) => {
-    if (e.code.startsWith("Arrow")) {
-        let dx = 0, dy = 0;
-        if (e.code === "ArrowDown")
-            dy += 1
-        else if (e.code === "ArrowUp")
-            dy -= 1
-        else if (e.code === "ArrowLeft")
-            dx -= 1
-        else if (e.code === "ArrowRight")
-            dx += 1
-
-        if (!map1.wallIsPresent(joueur.x+dx, joueur.y+dy))
-            joueur.move(dx,dy)
-    }
-    else if (e.code === "Space") {
-        joueur.attack()
-    }
-}
-
-const drawGrid = (spritesize, ctx, canvas) => {
-    const gridSize = spritesize;
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-
-    ctx.lineWidth = 0.5;
-    ctx.beginPath();
-    for (let x = 0; x <= canvasWidth; x += gridSize) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvasHeight);
-    }
-    for (let y = 0; y <= canvasHeight; y += gridSize) {
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvasWidth, y);
-    }
-    ctx.strokeStyle = '#000';
-    ctx.stroke();
-}
-
 window.addEventListener('load', () => {
     document.getElementById("loader").classList.add("hidden")
     GameZone.canvas.classList.remove("hidden")
 
-    setInterval(gameloop, 100)
-    window.addEventListener('keydown', arrowkey)
+    setInterval(GameZone.gameloop, 100)
+    window.addEventListener('keydown', GameZone.keyevent)
     window.addEventListener('keyup', (e) => {
         if (e.code.startsWith("Arrow")) joueur.stopaction()
     })
 })
 
 window.addEventListener('resize', GameZone.init)
-
-
-export { joueur }
