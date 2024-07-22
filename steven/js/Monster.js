@@ -40,6 +40,6 @@ export class Monster extends Character{
         let position_x = (this.x - joueur.x) * GameZone.pixel + position_joueur_x + this.correction_position_x
         let position_y = (this.y - joueur.y) * GameZone.pixel + position_joueur_y + this.correction_position_y
 
-        this.drawImage(this.sprites[this.action][this.lastmovement],position_x, position_y)
+        this.drawImage(this.sprites[this.action][this.direction],position_x, position_y)
     }
 }

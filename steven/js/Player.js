@@ -45,7 +45,7 @@ export class Player extends Character{
         let position_x = Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel + this.correction_position_x
         let position_y = Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel + this.correction_position_y
 
-        this.drawImage(this.sprites[this.action][this.lastmovement],position_x, position_y)
+        this.drawImage(this.sprites[this.action][this.direction],position_x, position_y)
     }
 
     move(dx,dy) {
@@ -56,12 +56,12 @@ export class Player extends Character{
         this.y += dy;
 
         if (dx < 0)
-            this.lastmovement = "left"
+            this.direction = "left"
         else if (dx > 0)
-            this.lastmovement = "right"
+            this.direction = "right"
         else if (dy < 0)
-            this.lastmovement = "back"
+            this.direction = "back"
         else if (dy > 0)
-            this.lastmovement = "front"
+            this.direction = "front"
     }
 }

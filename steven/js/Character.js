@@ -35,7 +35,7 @@ export class Character {
     }
 
     constructor(sprites = undefined) {
-        this.lastmovement = "right"
+        this.direction = "right"
         this.action = IDLE
         this.cpt = 0
 
