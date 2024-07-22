@@ -1,12 +1,12 @@
-import { GameZone } from "./Gamezone.js";
-import { Character } from "./Character.js";
-import { Monster } from "./Monster.js";
+import { GameZone } from "./Gamezone.js"
+import { Player } from "./Player.js"
+import { Monster } from "./Monster.js"
 import { Map } from "./Map.js"
 
 GameZone.init()
 const map1 = new Map("assets/testmap.svg", "assets/map_collision.svg")
-const joueur = new Character();
-const monster = new Monster();
+const joueur = new Player()
+const monster = new Monster()
 
 window.joueur = joueur
 window.monster = monster
