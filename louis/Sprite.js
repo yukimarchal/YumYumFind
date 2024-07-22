@@ -14,7 +14,7 @@ class Sprite{
         this.useShadow = true; //config.useShadow || false
 
         if(this.useShadow) {
-            this.shadow.src = "/images/characters/shadow.png";
+            this.shadow.src = "/louis/images/characters/shadow.png";
         }
 
         this.shadow.onload = () => {
