@@ -15,6 +15,10 @@ window.grid = false
 const gameloop = () => {
     GameZone.clear()
     map1.update()
+
+    if (window.grid)
+        drawGrid(GameZone.pixel, GameZone.context, GameZone.canvas)
+
     joueur.update()
     monster.update()
 }
@@ -37,6 +41,25 @@ const arrowkey = (e) => {
     else if (e.code === "Space") {
         joueur.attack()
     }
+}
+
+const drawGrid = (spritesize, ctx, canvas) => {
+    const gridSize = spritesize;
+    const canvasWidth = canvas.width;
+    const canvasHeight = canvas.height;
+
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    for (let x = 0; x <= canvasWidth; x += gridSize) {
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvasHeight);
+    }
+    for (let y = 0; y <= canvasHeight; y += gridSize) {
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvasWidth, y);
+    }
+    ctx.strokeStyle = '#000';
+    ctx.stroke();
 }
 
 window.addEventListener('load', () => {
