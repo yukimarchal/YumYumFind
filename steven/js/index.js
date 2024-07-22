@@ -1,17 +1,22 @@
 import { GameZone } from "./Gamezone.js";
 import { Character } from "./Character.js";
+import { Monster } from "./Monster.js";
 import { Map } from "./Map.js"
 
 GameZone.init()
 const map1 = new Map("assets/testmap.svg", "assets/map_collision.svg")
 const joueur = new Character();
+const monster = new Monster();
 
 window.joueur = joueur
+window.monster = monster
+window.grid = false
 
 const gameloop = () => {
     GameZone.clear()
     map1.update()
     joueur.update()
+    monster.update()
 }
 
 const arrowkey = (e) => {
