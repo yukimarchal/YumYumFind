@@ -6,11 +6,49 @@ import { Map } from "./Map.js"
 GameZone.init()
 const map1 = new Map("assets/testmap.svg", "assets/map_collision.svg")
 const joueur = new Player()
-const monster = new Monster()
+const gobelin = new Monster({
+    "idle": {
+        "left" : "assets/sprite/goblin/idle/left.svg",
+        "right": "assets/sprite/goblin/idle/right.svg",
+    },
+    "attack": {
+        "left" : "assets/sprite/goblin/attack/left.svg",
+        "right": "assets/sprite/goblin/attack/right.svg",
+    },
+    "hit": {
+        "left" : "assets/sprite/goblin/hit/left.svg",
+        "right": "assets/sprite/goblin/hit/right.svg",
+    }
+}, -24, -27)
+const slime = new Monster({
+    "idle": {
+        "left" : "assets/sprite/slime/idle/left.svg",
+        "right": "assets/sprite/slime/idle/right.svg",
+    },
+    "attack": {
+        "left" : "assets/sprite/slime/attack/left.svg",
+        "right": "assets/sprite/slime/attack/right.svg",
+    },
+    "hit": {
+        "left" : "assets/sprite/slime/hit/left.svg",
+        "right": "assets/sprite/slime/hit/right.svg",
+    }
+}, -24, -27)
+
 
 window.joueur = joueur
-window.monster = monster
+window.gobelin = gobelin
+window.slime = slime
 window.grid = false
+
+joueur.x = 9
+joueur.y = 30
+
+gobelin.x = 8
+gobelin.y = 30
+
+slime.x = 12
+slime.y = 30
 
 const gameloop = () => {
     GameZone.clear()
@@ -20,7 +58,8 @@ const gameloop = () => {
         drawGrid(GameZone.pixel, GameZone.context, GameZone.canvas)
 
     joueur.update()
-    monster.update()
+    gobelin.update()
+    slime.update()
 }
 
 const arrowkey = (e) => {

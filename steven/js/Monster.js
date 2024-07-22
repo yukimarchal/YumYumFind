@@ -5,31 +5,16 @@ import {ATTACK, Character, DEATH, HIT, IDLE, WALK} from "./Character.js";
 export class Monster extends Character{
 
 
-    constructor() {
+    constructor(sprites, corr_x, corr_y) {
         super()
         this.maxhp = 11
         this.hp = this.maxhp
         this.x = 8
         this.y = 30
 
-        this.correction_position_x = -24
-        this.correction_position_y = -27
-
-        this.sprites= {
-            "idle": {
-                "left" : "assets/sprite/goblin/idle/left.svg",
-                "right": "assets/sprite/goblin/idle/right.svg",
-            },
-            "attack": {
-                "left" : "assets/sprite/goblin/attack/left.svg",
-                "right": "assets/sprite/goblin/attack/right.svg",
-            },
-            "hit": {
-                "left" : "assets/sprite/goblin/hit/left.svg",
-                "right": "assets/sprite/goblin/hit/right.svg",
-            }
-        }
-
+        this.correction_position_x = corr_x
+        this.correction_position_y = corr_y
+        this.sprites = sprites
         this.loadSprites()
     }
 
