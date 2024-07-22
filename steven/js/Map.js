@@ -4,7 +4,7 @@ import { joueur } from "./index.js";
 export class Map {
     constructor(map, collision) {
         this.loadMap(map)
-        //this.loadCollisionMap(collision)
+        this.loadCollisionMap(collision)
     }
 
     loadMap(src) {
@@ -30,11 +30,12 @@ export class Map {
         tmpcol.src = src
         tmpcol.onload = () => {
             let tmpcan = document.getElementById('hiddencanvas')
-            tmpcan.scale(1, 1)
+
             tmpcan.width = tmpcol.width
             tmpcan.height = tmpcol.height
 
             let ctx = tmpcan.getContext('2d')
+            ctx.scale(1, 1)
             ctx.drawImage(tmpcol, 0, 0)
 
             const pixels = ctx.getImageData(0,0,tmpcan.width,tmpcan.height).data
@@ -42,9 +43,9 @@ export class Map {
 
             for (let i = 0; i < pixels.length; i += 4) {
                 if (pixels[i] === 255 && pixels[i + 1] === 0 && pixels[i + 2] === 0)
-                    boolArray.push(true)
-                else
                     boolArray.push(false)
+                else
+                    boolArray.push(true)
             }
 
             const result = []
@@ -53,12 +54,13 @@ export class Map {
             }
 
             this.collision = result
+            window.collision = this.collision
         }
+
     }
 
     wallIsPresent(x,y) {
-        //return this.collision[y][x]
-        return false
+        return this.collision[y][x]
     }
 
     update() {

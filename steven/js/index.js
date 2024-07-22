@@ -4,7 +4,7 @@ import { Monster } from "./Monster.js"
 import { Map } from "./Map.js"
 
 GameZone.init()
-const map1 = new Map("assets/testmap.svg", "assets/map_collision.svg")
+const map1 = new Map("assets/map/map.svg", "assets/map/map_collision.svg")
 const joueur = new Player()
 const gobelin = new Monster({
     "idle": {
@@ -41,14 +41,15 @@ window.gobelin = gobelin
 window.slime = slime
 window.grid = false
 
-joueur.x = 9
-joueur.y = 30
+joueur.x = 14
+joueur.y = 35
 
-gobelin.x = 8
-gobelin.y = 30
+gobelin.x = 2
+gobelin.y = 22
 
-slime.x = 12
-slime.y = 30
+slime.x = 15
+slime.y = 14
+slime.direction = "left"
 
 const gameloop = () => {
     GameZone.clear()
@@ -57,9 +58,9 @@ const gameloop = () => {
     if (window.grid)
         drawGrid(GameZone.pixel, GameZone.context, GameZone.canvas)
 
-    joueur.update()
     gobelin.update()
     slime.update()
+    joueur.update()
 }
 
 const arrowkey = (e) => {
