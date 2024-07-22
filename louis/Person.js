@@ -25,14 +25,14 @@ class Person extends GameObject{
             //
 
             //*case pour savoir si la touche a bien ete presser et executer 
-            if(this.isPlayerControlled && stade.arrow){
+            if(!stade.map.isCutscenePlaying && this.isPlayerControlled && stade.arrow){
                 this.startBehavior(stade,{
                     type:"walk",
                     direction : stade.arrow
                 })
             }
+            this.updateSprite(stade);
         }
-        this.updateSprite(stade);
     }
 //* set pour le hero et les pnj aller ou il vielle selon les limite de la map
     startBehavior(stade,behavior){
@@ -40,12 +40,27 @@ class Person extends GameObject{
         if (behavior.type === "walk"){
             //* ici on s'arrete de bouger si il y a un true a la position (les corrodonée des mur table ,...) (le perso hein ! )
             if(stade.map.isSpaceTaken(this.x,this.y,this.direction)){
+
+                behavior.retry && setTimeout(() => {
+                    this.startBehavior(stade,behavior)
+                }, 10);
                 return;
             }
             //*Tout de go ! 
             stade.map.moveWall(this.x,this.y,this.direction);
             this.movingProgressRemaining = 16;
+            this.updateSprite(stade);
         }
+
+        if(behavior.type === "stand"){
+            setTimeout(() => {
+                utils.emitEvent("PersonWalkingComlete",{
+                    whoId: this.id
+                })
+            },behavior.time)
+        }
+
+
     }
 
 
@@ -53,6 +68,14 @@ class Person extends GameObject{
             const [property,change] = this.directionUpdate[this.direction]
             this[property] += change;
             this.movingProgressRemaining -= 1
+
+            if(this.movingProgressRemaining === 0){
+                // ici c'est finis l'animation !
+
+                utils.emitEvent("PersonWalkingComlete",{
+                    whoId: this.id
+                })
+            }
     }
 
     updateSprite(){
