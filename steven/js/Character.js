@@ -8,28 +8,28 @@ const WALK = "walk"
 export class Character {
     sprites= {
         "idle": {
-            "front": "assets/sprite/idle/front.svg",
-            "back" : "assets/sprite/idle/back.svg",
-            "left" : "assets/sprite/idle/left.svg",
-            "right": "assets/sprite/idle/right.svg",
+            "front": "assets/sprite/player/idle/front.svg",
+            "back" : "assets/sprite/player/idle/back.svg",
+            "left" : "assets/sprite/player/idle/left.svg",
+            "right": "assets/sprite/player/idle/right.svg",
         },
         "walk" : {
-            "front": "assets/sprite/walk/front.svg",
-            "back" : "assets/sprite/walk/back.svg",
-            "left" : "assets/sprite/walk/left.svg",
-            "right": "assets/sprite/walk/right.svg",
+            "front": "assets/sprite/player/walk/front.svg",
+            "back" : "assets/sprite/player/walk/back.svg",
+            "left" : "assets/sprite/player/walk/left.svg",
+            "right": "assets/sprite/player/walk/right.svg",
         },
         "attack": {
-            "front": "assets/sprite/attack/front.svg",
-            "back" : "assets/sprite/attack/back.svg",
-            "left" : "assets/sprite/attack/left.svg",
-            "right": "assets/sprite/attack/right.svg",
+            "front": "assets/sprite/player/attack/front.svg",
+            "back" : "assets/sprite/player/attack/back.svg",
+            "left" : "assets/sprite/player/attack/left.svg",
+            "right": "assets/sprite/player/attack/right.svg",
         },
         "hit": {
-            "front": "assets/sprite/hit/front.svg",
-            "back" : "assets/sprite/hit/back.svg",
-            "left" : "assets/sprite/hit/left.svg",
-            "right": "assets/sprite/hit/right.svg",
+            "front": "assets/sprite/player/hit/front.svg",
+            "back" : "assets/sprite/player/hit/back.svg",
+            "left" : "assets/sprite/player/hit/left.svg",
+            "right": "assets/sprite/player/hit/right.svg",
         }
     }
 
