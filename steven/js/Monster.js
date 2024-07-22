@@ -17,7 +17,7 @@ export class Monster extends Character{
         this.loadSprites()
     }
 
-    update() {
+    update = () => {
         let position_joueur_x = Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel
         let position_joueur_y = Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel
 

@@ -48,7 +48,7 @@ export class Character {
         }
     }
 
-    loadSprites() {
+    loadSprites = () => {
         for (let category in this.sprites) {
             for (let direction in this.sprites[category]) {
                 if (this.sprites[category][direction] !== undefined) {
@@ -61,7 +61,7 @@ export class Character {
         }
     }
 
-    drawImage(image, x, y) {
+    drawImage = (image, x, y) => {
         let ctx = GameZone.context
 
         let nbframe = this.sprites[this.action]["right"].width/64
@@ -77,17 +77,17 @@ export class Character {
         }
     }
 
-    attack() {
+    attack = () => {
         this.action = ATTACK
         this.cpt = 0
     }
 
-    hit() {
+    hit = () => {
         this.action = HIT
         this.cpt = 0
     }
 
-    stopaction() {
+    stopaction = () => {
         this.action = IDLE
     }
 }

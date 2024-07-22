@@ -41,14 +41,14 @@ export class Player extends Character{
         this.loadSprites()
     }
 
-    update() {
+    update = () => {
         let position_x = Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel + this.correction_position_x
         let position_y = Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel + this.correction_position_y
 
         this.drawImage(this.sprites[this.action][this.direction],position_x, position_y)
     }
 
-    move(dx,dy) {
+    move = (dx,dy) => {
         if (this.action === ATTACK || this.action === HIT) return
 
         this.action = WALK

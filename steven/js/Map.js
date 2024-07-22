@@ -6,7 +6,7 @@ export class Map {
         this.loadCollisionMap(collision)
     }
 
-    loadMap(src) {
+    loadMap = (src) => {
         let map = new Image()
         map.src = src
         map.onload = () => {
@@ -23,7 +23,7 @@ export class Map {
         }
     }
 
-    loadCollisionMap(src) {
+    loadCollisionMap = (src) => {
         let tmpcol = new Image()
         tmpcol.src = src
         tmpcol.onload = () => {
