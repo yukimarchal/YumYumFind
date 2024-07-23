@@ -5,13 +5,16 @@ export class GameZone {
     static context = GameZone.canvas.getContext('2d')
 
     static init = (map, player, monsters) => {
-        this.canvas.width = window.innerWidth
-        this.canvas.height = window.innerHeight
-        this.context.scale(this.scale,this.scale)
-
+        this.resize()
         this.map = map
         this.player = player
         this.monsters = monsters
+    }
+
+    static resize = () => {
+        this.canvas.width = window.innerWidth
+        this.canvas.height = window.innerHeight
+        this.context.scale(this.scale,this.scale)
     }
 
     static gameloop = () => {
@@ -23,6 +26,10 @@ export class GameZone {
 
         this.player.update()
         this.monsters.forEach((monster) => monster.update())
+
+        this.player.updateHealthBar()
+
+        //requestAnimationFrame(GameZone.gameloop)
     }
 
     static drawGrid = (spritesize, ctx, canvas) => {
@@ -56,16 +63,34 @@ export class GameZone {
             else if (e.code === "ArrowRight")
                 dx += 1
 
-            if (!GameZone.wallIsPresent(this.player.x+dx, this.player.y+dy))
+            if (GameZone.noObstacle(this.player.x+dx, this.player.y+dy)) {
                 this.player.move(dx,dy)
+            }
+            else {
+                this.player.rotate(dx,dy)
+            }
         }
         else if (e.code === "Space") {
-            this.player.attack()
+            let coordAttack = this.player.coordAttack()
+            let monster = GameZone.monsterIsPresent(coordAttack.x, coordAttack.y)
+            this.player.attack(monster)
         }
+    }
+
+    static noObstacle = (x,y) => {
+        return !GameZone.monsterIsPresent(x, y) && !GameZone.wallIsPresent(x, y)
     }
 
     static wallIsPresent = (x,y) => {
         return this.map.wallIsPresent(x,y)
+    }
+
+    static monsterIsPresent = (x,y) => {
+        return this.monsters.find((e) => e.x === x && e.y === y && e.hp > 0)
+    }
+
+    static playerIsPresent = (x,y) => {
+        return this.player.x === x && this.player.y === y && this.player.hp > 0
     }
 
     static clear = () => {

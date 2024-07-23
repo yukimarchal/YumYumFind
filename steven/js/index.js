@@ -2,6 +2,8 @@ import { GameZone } from "./Gamezone.js"
 import { Player } from "./Player.js"
 import { Monster } from "./Monster.js"
 import { Map } from "./Map.js";
+import {EnnemiesHealthBar} from "./EnnemiesHealthBar.js";
+import {PlayerHealthBar} from "./PlayerHealthBar.js";
 
 const map = new Map("assets/map/map.svg", "assets/map/map_collision.svg")
 const joueur = new Player()
@@ -17,8 +19,12 @@ const gobelin = new Monster({
     "hit": {
         "left" : "assets/sprite/goblin/hit/left.svg",
         "right": "assets/sprite/goblin/hit/right.svg",
+    },
+    "death": {
+        "left" : "assets/sprite/goblin/death.svg",
+        "right": "assets/sprite/goblin/death.svg",
     }
-}, -24, -27)
+}, -24, -27, 10, 8)
 const slime = new Monster({
     "idle": {
         "left" : "assets/sprite/slime/idle/left.svg",
@@ -31,10 +37,16 @@ const slime = new Monster({
     "hit": {
         "left" : "assets/sprite/slime/hit/left.svg",
         "right": "assets/sprite/slime/hit/right.svg",
+    },
+    "death": {
+        "left" : "assets/sprite/slime/death.svg",
+        "right": "assets/sprite/slime/death.svg",
     }
-}, -24, -27)
+}, -24, -27, 12, 8)
 
 GameZone.init(map, joueur, [gobelin, slime])
+PlayerHealthBar.init()
+EnnemiesHealthBar.init()
 
 window.joueur = joueur
 window.gobelin = gobelin
@@ -42,7 +54,8 @@ window.slime = slime
 window.grid = false
 
 joueur.x = 14
-joueur.y = 35
+joueur.y = 34
+joueur.direction = "right"
 
 gobelin.x = 2
 gobelin.y = 22
@@ -56,10 +69,12 @@ window.addEventListener('load', () => {
     GameZone.canvas.classList.remove("hidden")
 
     setInterval(GameZone.gameloop, 100)
+    //requestAnimationFrame(GameZone.gameloop)
+
     window.addEventListener('keydown', GameZone.keyevent)
     window.addEventListener('keyup', (e) => {
         if (e.code.startsWith("Arrow")) joueur.stopaction()
     })
 })
 
-window.addEventListener('resize', GameZone.init)
+window.addEventListener('resize', GameZone.resize)

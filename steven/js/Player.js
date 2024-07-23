@@ -1,12 +1,11 @@
 import { GameZone } from "./Gamezone.js";
 import {ATTACK, Character, DEATH, HIT, IDLE, WALK} from "./Character.js";
+import {PlayerHealthBar} from "./PlayerHealthBar.js";
 
 export class Player extends Character{
 
     constructor() {
         super()
-        this.maxhp = 11
-        this.hp = this.maxhp
         this.x = 9
         this.y = 30
         this.correction_position_x = -24
@@ -36,9 +35,17 @@ export class Player extends Character{
                 "back" : "assets/sprite/player/hit/back.svg",
                 "left" : "assets/sprite/player/hit/left.svg",
                 "right": "assets/sprite/player/hit/right.svg",
+            },
+            "death": {
+                "front": "assets/sprite/player/death.svg",
+                "back" : "assets/sprite/player/death.svg",
+                "left" : "assets/sprite/player/death.svg",
+                "right": "assets/sprite/player/death.svg",
             }
         }
         this.loadSprites()
+
+        this.healthbar = PlayerHealthBar
     }
 
     update = () => {
@@ -48,13 +55,11 @@ export class Player extends Character{
         this.drawImage(this.sprites[this.action][this.direction],position_x, position_y)
     }
 
-    move = (dx,dy) => {
-        if (this.action === ATTACK || this.action === HIT) return
+    updateHealthBar = () => {
+        this.healthbar.draw(this.maxhp, this.hp)
+    }
 
-        this.action = WALK
-        this.x += dx;
-        this.y += dy;
-
+    rotate = (dx, dy) => {
         if (dx < 0)
             this.direction = "left"
         else if (dx > 0)
@@ -63,5 +68,14 @@ export class Player extends Character{
             this.direction = "back"
         else if (dy > 0)
             this.direction = "front"
+    }
+
+    move = (dx,dy) => {
+        if (this.action === DEATH || this.action === ATTACK || this.action === HIT) return
+
+        this.action = WALK
+        this.x += dx;
+        this.y += dy;
+        this.rotate(dx,dy)
     }
 }
