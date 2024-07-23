@@ -6,6 +6,10 @@ export class Player extends Character{
 
     constructor() {
         super()
+
+        this.endurance += 1
+        this.force += 1
+
         this.x = 9
         this.y = 30
         this.correction_position_x = -24

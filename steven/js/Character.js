@@ -1,5 +1,6 @@
 import {GameZone} from "./Gamezone.js";
 import {EnnemiesHealthBar} from "./EnnemiesHealthBar.js";
+import {De} from "./De.js";
 
 export const ATTACK = "attack"
 export const DEATH = "death"
@@ -8,62 +9,57 @@ export const IDLE = "idle"
 export const WALK = "walk"
 
 export class Character {
-    sprites= {
-        ATTACK: {
-            "front": undefined,
-            "back" : undefined,
-            "left" : undefined,
-            "right": undefined,
-        },
-        HIT: {
-            "front": undefined,
-            "back" : undefined,
-            "left" : undefined,
-            "right": undefined,
-        },
-        IDLE: {
-            "front": undefined,
-            "back" : undefined,
-            "left" : undefined,
-            "right": undefined,
-        },
-        WALK : {
-            "front": undefined,
-            "back" : undefined,
-            "left" : undefined,
-            "right": undefined,
-        }
+    endurance = 0
+    force = 0
+
+    hp = 10
+    maxhp = this.hp
+
+    x = 0
+    y = 0
+
+    direction = "right"
+    action = IDLE
+    cpt = 0
+
+    health_corr_x = 0
+    health_corr_y = 0
+
+    longueur_sprite = 64
+    hauteur_sprite = 64
+
+    sprites = undefined
+    healthbar = EnnemiesHealthBar
+
+    constructor() {
+        this.endurance = this.sommeMeilleursLances(De.SixFace.QuatreLance()) + 5;
+        this.force = this.sommeMeilleursLances(De.QuatreFace.QuatreLance());
+        this.hp = this.maxhp = this.applyModificator(this.endurance);
     }
 
-    constructor(sprites = undefined) {
-        this.direction = "right"
-        this.action = IDLE
-        this.cpt = 0
-        this.x = 0
-        this.y = 0
-        this.maxhp = 10
-        this.hp = this.maxhp
+    sommeMeilleursLances = (l,nb = 3) => {
+        l.sort((a, b) => a - b)
+        return l.slice(-nb).reduce((acc, val) => acc + val, 0)
+    }
 
-        this.health_corr_x = 0
-        this.health_corr_y = 0
-
-        this.longueur_sprite = 64
-        this.hauteur_sprite = 64
-
-        if (sprites !== undefined) {
-            this.sprites = sprites
-            this.loadSprites()
-            this.healthbar = EnnemiesHealthBar
+    applyModificator = (statBase) => {
+        switch(true){
+            case statBase < 5: return statBase - 1
+            case statBase < 10: return statBase + 0
+            case statBase < 15: return statBase + 1
+            default: return statBase + 2;
         }
     }
 
     loadSprites = () => {
-        for (let category in this.sprites) {
-            for (let direction in this.sprites[category]) {
-                if (this.sprites[category][direction] !== undefined) {
-                    let tmp = new Image()
-                    tmp.src = this.sprites[category][direction]
-                    this.sprites[category][direction] = tmp
+        if (this.sprites !== undefined) {
+            for (let category in this.sprites) {
+                for (let direction in this.sprites[category]) {
+                    if (this.sprites[category][direction] !== undefined) {
+                        let tmp = new Image()
+                        tmp.src = this.sprites[category][direction]
+                        this.sprites[category][direction] = tmp
+                    }
                 }
             }
         }
@@ -108,7 +104,8 @@ export class Character {
         this.cpt = 0
 
         if (target !== undefined) {
-            target.hit(3)
+            let damage = this.sommeMeilleursLances(De.QuatreFace.QuatreLance(),4) + this.applyModificator(this.force)
+            target.hit(damage)
         }
     }
 

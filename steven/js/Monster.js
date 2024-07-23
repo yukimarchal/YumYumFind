@@ -4,10 +4,13 @@ import {EnnemiesHealthBar} from "./EnnemiesHealthBar.js";
 
 export class Monster extends Character{
 
-    constructor(sprites, corr_x, corr_y, health_corr_x, health_corr_y) {
+    constructor(sprites, corr_x, corr_y, health_corr_x, health_corr_y, bonus_endu = 0, bonus_force = 0) {
         super()
         this.x = 8
         this.y = 30
+
+        this.endurance += bonus_endu
+        this.force += bonus_force
 
         this.correction_position_x = corr_x
         this.correction_position_y = corr_y

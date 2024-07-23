@@ -24,7 +24,7 @@ const gobelin = new Monster({
         "left" : "assets/sprite/goblin/death.svg",
         "right": "assets/sprite/goblin/death.svg",
     }
-}, -24, -27, 10, 8)
+}, -24, -27, 10, 8, 0, 1)
 const slime = new Monster({
     "idle": {
         "left" : "assets/sprite/slime/idle/left.svg",
@@ -42,7 +42,7 @@ const slime = new Monster({
         "left" : "assets/sprite/slime/death.svg",
         "right": "assets/sprite/slime/death.svg",
     }
-}, -24, -27, 12, 8)
+}, -24, -27, 12, 8, 1, 0)
 
 GameZone.init(map, joueur, [gobelin, slime])
 PlayerHealthBar.init()
