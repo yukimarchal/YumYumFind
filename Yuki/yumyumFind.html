@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="yumyumFind.css">
+	<script src="yumyumFind.js" defer></script>
+	<title>Document</title>
+</head>
+
+<body>
+	<section id="overlay">
+		<section id="popUp">
+			<div id="found">
+				<p>You found it!</p>
+				<p>Myum myum 😋</p>
+				<p>Choose the difficulty and play again!</p>
+				<div class="difficulty">
+					<button class="easy">Easy</button>
+					<button class="normal">Normal</button>
+					<button class="difficult">Difficult</button>
+				</div>
+			</div>
+			<div id="click3">
+				<p>Too many clicks! Gurrrrrrrrrrrrr</p>
+				<p>Those are not what I want 😡</p>
+				<p>Choose the difficulty and play again!</p>
+				<div class="difficulty">
+					<button class="easy">Easy</button>
+					<button class="normal">Normal</button>
+					<button class="difficult">Difficult</button>
+				</div>
+			</div>
+			<div id="timeUp">
+				<p>Time's up! Gurrrrrrrrrrrrr</p>
+				<p>I'm hungryyyyyyy 😡</p>
+				<p>Choose the difficulty and play again!</p>
+				<div class="difficulty">
+					<button class="easy">Easy</button>
+					<button class="normal">Normal</button>
+					<button class="difficult">Difficult</button>
+				</div>
+			</div>
+		</section>
+	</section>
+	<section id="game">
+		<div>
+			<p id="title">YumYumFind</p>
+			<div id="field">
+			</div>
+		</div>
+	</section>
+	<section id="info">
+		<div id="cat">
+			<img src="./hungry cat/where is my food cat.jpg" alt="hungry cat">
+		</div>
+		<div id="speechBubble_timer">
+			<div>
+				<p id="targetEmoji">😋</p>
+			</div>
+			<div>
+				<p>You have <span id="timer">1000</span>s</p>
+				<p>...before the cat gets angry</p>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
