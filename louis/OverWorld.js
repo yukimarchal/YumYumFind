@@ -66,7 +66,7 @@ class Overworld {
  
   init() {
    //!change la 1er map ici 
-   this.startMap(window.OverworldMaps.Kitchen);
+   this.startMap(window.OverworldMaps.DemoRoom);
  
  
    this.bindActionInput();
@@ -79,7 +79,9 @@ class Overworld {
  
  
     this.map.startCutscene([
-     { type: "changeMap", map: "DemoRoom"}
+
+      { type: "battle" }
+     //{ type: "changeMap", map: "DemoRoom"}
      // { type: "textMessage", text: "Oh wowo c'est le 1er message incroyable je suis fatigue !"}
     ])
  

@@ -1,0 +1,40 @@
+.Battle{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: url(/louis/images/maps/StreetBattle.png); /* ICI on change la map*/
+    background-size: cover;
+    image-rendering: pixelated;
+}
+/* creation des ombre du personages dans le zone de combat */
+.Battle_hero, .Battle_enemy {
+    position: absolute;
+    transform: scale(2);
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    background: url(/louis/images/characters/shadow.png) no-repeat no-repeat;
+}
+
+.Battle_hero img, .Battle_enemy img{
+    pointer-events: none;
+}
+
+/* possition des personage dans le zone */
+
+.Battle_hero {
+    bottom: 57px;
+    left: 1px;
+
+}
+
+.Battle_hero img{
+    transform: translateY(-64px); 
+}
+
+.Battle_enemy{
+    top: 42px;
+    right: -1px;
+}
