@@ -61,16 +61,12 @@ export class Character {
         for (let category in this.sprites) {
             for (let direction in this.sprites[category]) {
                 if (this.sprites[category][direction] !== undefined) {
-                    this.sprites[category][direction] = this.#convertPathToImg(this.sprites[category][direction])
+                    let tmp = new Image()
+                    tmp.src = this.sprites[category][direction]
+                    this.sprites[category][direction] = tmp
                 }
             }
         }
-    }
-
-    #convertPathToImg = (path) => {
-        let tmp = new Image()
-        tmp.src = path
-        return tmp
     }
 
     drawImage = (image, x, y, isHealthBar = false ) => {
