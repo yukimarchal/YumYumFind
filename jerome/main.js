@@ -39,7 +39,7 @@ function affichPlateau() {
         plaTeau.append(carre);
     });
 
-    const allCarres = document.querySelectorAll('#plateau .carre');
+    const allCarres = document.querySelectorAll('.carre');
     allCarres.forEach(carre => {
         carre.addEventListener('dragstart', premierCoup);
         carre.addEventListener('dragover', coupPerdu);
@@ -63,19 +63,33 @@ function coupPerdu(e) {
 
 function coupJouer(e) {
     e.stopPropagation();
-    const carreId = e.target.getAttribute('carre-id');
-    if (carreId) {
-        e.target.append(coup);
-        joueurSuivant();
-    }
+    console.log(e.target)
+    const coupCorrect = e.target.firstChild?.classList.contains(playerJoue)
+    coup.firstChild.classList.contains(playerJoue)
+    const pris = e.target.classList.contains('pieces')
+    const premierJoueur = playerJoueur === 'white' ? 'black' : 'white';
+    const coupPris = e.target.firstChild?.classList.contains(premierJoueur)
 }
 
 function joueurSuivant() {
     if (playerJoue === "black") {
+        reverseIds();
         playerJoue = "white";
         affichJoueur.textContent = 'white';
     } else {
+        revertIds();
         playerJoue = "black";
         affichJoueur.textContent = 'black';
     }
+}
+
+function reverseIds() {
+    const allCarres = document.querySelectorAll(".carre")
+    allCarres.forEach((carre, i) => 
+        carre.setAttribute('carre-id', (width * width - 1) -i))
+}
+
+function revertIds() {
+    const allCarres = document.querySelectorAll(".carre")
+    allCarres.forEach((carre, i)=> carre.setAttribute('carre-id', i))
 }
