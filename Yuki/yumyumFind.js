@@ -162,7 +162,7 @@ const CLICK3 = document.querySelector("#click3");
 
 // * Action when the time is up
 
-let timeLeft = 5000;
+let timeLeft = 30;
 TIMER.textContent = timeLeft;
 
 function updateTimer() {
@@ -204,7 +204,7 @@ EASY.forEach(element => {
 	
 		// * Set timer and play
 		clickCount = 0;
-		timeLeft = 15;
+		timeLeft = 10;
 		TIMER.textContent = timeLeft;
 		INTERVAL = setInterval(updateTimer, 1000);
 		Play();
@@ -229,7 +229,7 @@ NORMAL.forEach(element => {
 	
 		// * Set timer and play
 		clickCount = 0;
-		timeLeft = 7;
+		timeLeft = 5;
 		TIMER.textContent = timeLeft;
 		INTERVAL = setInterval(updateTimer, 1000);
 		Play();
