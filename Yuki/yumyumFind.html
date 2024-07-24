@@ -10,8 +10,10 @@
 </head>
 
 <body>
-	<section id="menu">Menu</section>
-	<section id="overlay">
+	<header>
+		<section id="menu">Menu</section>
+	</header>
+	<section id="overlay"></section>
 		<section id="popUp">
 			<div id="found">
 				<p>You found it!</p>
@@ -43,35 +45,38 @@
 					<button class="difficult">Difficult</button>
 				</div>
 			</div>
+	</section>
+	<section id="main">
+		<section id="game">
+			<div id="gamebox">
+				<p id="title">YumYumFind</p>
+				<div id="field">
+				</div>
+			</div>
+		</section>
+		<section id="info">
+			<div id="cat">
+				<img src="./hungry cat/where is my food cat.jpg" alt="hungry cat">
+			</div>
+			<div id="speechBubble_timer">
+				<div>
+					<p id="targetEmoji">😋</p>
+					<audio id="yay" src="./audio/yay-6120.mp3"></audio>
+					<audio id="incorrect" src="./audio/notification-sound-error-sound-effect-203788.mp3"></audio>
+					<audio id="fail" src="./audio/cat growl.mp3"></audio>
+				</div>
+				<div>
+					<p>You have <span id="timer"></span>s</p>
+					<p>...before the cat gets angry</p>
+					<p>______________________</p>
+					<p>Your score : <span id="score">0</span></p>
+				</div>
+			</div>
 		</section>
 	</section>
-	<section id="game">
-		<div>
-			<p id="title">YumYumFind</p>
-			<div id="field">
-			</div>
-		</div>
-	</section>
-	<section id="info">
-		<div id="cat">
-			<img src="./hungry cat/where is my food cat.jpg" alt="hungry cat">
-		</div>
-		<div id="speechBubble_timer">
-			<div>
-				<p id="targetEmoji">😋</p>
-				<audio id="yay" src="./audio/yay-6120.mp3"></audio>
-				<audio id="incorrect" src="./audio/notification-sound-error-sound-effect-203788.mp3"></audio>
-				<audio id="fail" src="./audio/cat growl.mp3"></audio>
-			</div>
-			<div>
-				<p>You have <span id="timer"></span>s</p>
-				<p>...before the cat gets angry</p>
-				<p>______________________</p>
-				<p>Your score : <span id="score">0</span></p>
-			</div>
-		</div>
-	</section>
-	<section id="footer">Footer</section>
+	<footer>
+		<section id="footer">Footer</section>
+	</footer>
 </body>
 
 </html>

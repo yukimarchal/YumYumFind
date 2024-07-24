@@ -57,6 +57,7 @@ const TIMEUP = document.querySelector("#timeUp");
 const TIMER = document.querySelector("#timer");
 const SCORE = document.querySelector("#score");
 const YAY = document.querySelector("#yay");
+const POPUP = document.querySelector("#popUp");
 let fieldEmojis;
 let target;
 
@@ -70,8 +71,8 @@ function Play() {
 	}
 
 	// * Add new P emojis, add info and insert into html
-	let positionX = 218;
-	let positionY = -8;
+	let positionX = 238;
+	let positionY = 210;
 	let positionZ = PositionRandom();
 
 	for (let i = 0; i < emojis.length; i++) {
@@ -86,8 +87,8 @@ function Play() {
 
 		// * Return to next row
 		if (i == 6 || i == 13 || i == 20 || i == 27 || i == 34 || i == 41) {
-			positionY -= 34;
-			positionX = 218;
+			positionY -= 39;
+			positionX = 238;
 		}
 		FIELD.append(newP);
 	}
@@ -116,6 +117,7 @@ function Play() {
 		YAY.play();
 		clearInterval(INTERVAL);
 		OVERLAY.style.display = "block";
+		POPUP.style.display = "flex";
 		FOUND.style.display = "flex";
 		clickCount = 0;
 		SCORE.textContent = parseInt(SCORE.textContent) + 1;
@@ -136,6 +138,7 @@ fieldEmojis.forEach(emoji => {
 		if (clickCount >= 3) {
 			FAIL.play();
 			OVERLAY.style.display = "block";
+			POPUP.style.display = "flex";
 			CLICK3.style.display = "flex";
 			clickCount = 0;
 			SCORE.textContent = 0;
@@ -172,6 +175,7 @@ function updateTimer() {
 		clearInterval(INTERVAL)
 		SCORE.textContent = 0;
 		OVERLAY.style.display = "block";
+		POPUP.style.display = "flex";
 		TIMEUP.style.display = "flex";
 	}
 }
@@ -193,6 +197,7 @@ EASY.forEach(element => {
 	
 		// * Clear the popups
 		OVERLAY.style.display = "none";
+		POPUP.style.display = "none";
 		FOUND.style.display = "none";
 		CLICK3.style.display = "none";
 		TIMEUP.style.display = "none";
@@ -217,6 +222,7 @@ NORMAL.forEach(element => {
 	
 		// * Clear the popups
 		OVERLAY.style.display = "none";
+		POPUP.style.display = "none";
 		FOUND.style.display = "none";
 		CLICK3.style.display = "none";
 		TIMEUP.style.display = "none";
@@ -241,6 +247,7 @@ DIFFICULT.forEach(element => {
 	
 		// * Clear the popups
 		OVERLAY.style.display = "none";
+		POPUP.style.display = "none";
 		FOUND.style.display = "none";
 		CLICK3.style.display = "none";
 		TIMEUP.style.display = "none";
