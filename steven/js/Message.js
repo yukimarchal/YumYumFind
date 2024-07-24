@@ -7,7 +7,8 @@ export class Message {
         this.msg = msg
     }
 
-    update = () => {
+    update = (i) => {
+        i++
         let ctx = GameZone.context
 
         ctx.font = `5px PixelOperator`
@@ -16,7 +17,7 @@ export class Message {
 
         const textWidth = ctx.measureText(this.msg).width
 
-        ctx.fillText(this.msg, (GameZone.canvas.width / GameZone.scale) - textWidth - GameZone.pixel/2, GameZone.pixel)
+        ctx.fillText(this.msg, (GameZone.canvas.width / GameZone.scale) - textWidth - GameZone.pixel/2, GameZone.pixel*i)
 
         ctx.globalAlpha = 1.00
         this.cpt--

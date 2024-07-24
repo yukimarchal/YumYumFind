@@ -100,9 +100,12 @@ export class GameZone {
 
             let isChest = GameZone.chestIsPresent(coordAttack.x, coordAttack.y)
             if (isChest) {
-                if (this.player.keys === this.monsters.length) {
-                    GameZone.#newMessage("Tu as libéré le canard !")
+                if (this.chest.isOpen) {
+                    GameZone.#newMessage("Tu vas tuer le canard avec ton épée 🤬")
+                }
+                else if (this.player.keys === this.monsters.length) {
                     this.chest.isOpen = true
+                    GameZone.#newMessage("Tu as libéré le canard !")
                 }
                 else {
                     GameZone.#newMessage(`Il manque ${this.monsters.length-this.player.keys} clé(s)`)
@@ -117,9 +120,8 @@ export class GameZone {
 
     static #showMessage = () => {
         this.#messages.forEach((m, i) => {
-            m.update()
+            m.update(i)
         })
-
         this.#messages = this.#messages.filter(m => m.cpt !== 0)
     }
 
