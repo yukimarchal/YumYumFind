@@ -134,7 +134,7 @@ fieldEmojis.forEach(emoji => {
 			clickCount++;
 		}
 		if (clickCount >= 3) {
-			GROWL.play();
+			FAIL.play();
 			OVERLAY.style.display = "block";
 			CLICK3.style.display = "flex";
 			clickCount = 0;
@@ -152,7 +152,7 @@ const OVERLAY = document.querySelector("#overlay");
 const FOUND = document.querySelector("#found");
 const POPUPS = document.querySelectorAll("#found, #click3, #timeUp");
 const INCORRECT = document.querySelector("#incorrect");
-const GROWL = document.querySelector("#growl");
+const FAIL = document.querySelector("#fail");
 
 let clickCount = 0;
 const CLICK3 = document.querySelector("#click3");
@@ -168,7 +168,7 @@ function updateTimer() {
 		TIMER.textContent = timeLeft;
 	}
 	else {
-		GROWL.play();
+		FAIL.play();
 		clearInterval(INTERVAL)
 		SCORE.textContent = 0;
 		OVERLAY.style.display = "block";
