@@ -56,6 +56,9 @@ const TARGET = document.querySelector("#targetEmoji");
 const TIMEUP = document.querySelector("#timeUp");
 const TIMER = document.querySelector("#timer");
 const SCORE = document.querySelector("#score");
+const YAY = document.querySelector("#yay");
+let fieldEmojis;
+let target;
 
 function Play() {
 	// * Shuffle the emoji list
@@ -100,14 +103,17 @@ function Play() {
 		}
 	}
 
+	// * Collect all the emoji elements
+	fieldEmojis = FIELD.querySelectorAll("p");
 
 	// * Pick up a target emoji to find
 	let random = Math.round(Math.random() * 47);
-	let target = document.querySelector(`#field p:nth-child(${random})`);
+	target = document.querySelector(`#field p:nth-child(${random})`);
 
 
 	// * Action when the target emoji is found
 	target.addEventListener('click', () => {
+		YAY.play();
 		clearInterval(INTERVAL);
 		OVERLAY.style.display = "block";
 		FOUND.style.display = "flex";
@@ -116,6 +122,27 @@ function Play() {
 	})
 	
 	TARGET.textContent = target.textContent;
+
+	// * Action when the user clicks more than 3 times
+
+fieldEmojis.forEach(emoji => {
+	emoji.addEventListener('click', () => {
+		if(emoji.textContent != target.textContent){
+			if(clickCount < 2){
+				INCORRECT.play();
+			}
+			clickCount++;
+		}
+		if (clickCount >= 3) {
+			GROWL.play();
+			OVERLAY.style.display = "block";
+			CLICK3.style.display = "flex";
+			clickCount = 0;
+			SCORE.textContent = 0;
+			clearInterval(INTERVAL)
+		}
+	})
+});
 }
 
 Play();
@@ -123,22 +150,12 @@ Play();
 // * Popups
 const OVERLAY = document.querySelector("#overlay");
 const FOUND = document.querySelector("#found");
-const POPUPS = document.querySelectorAll("#found, #click3, #timeUp")
+const POPUPS = document.querySelectorAll("#found, #click3, #timeUp");
+const INCORRECT = document.querySelector("#incorrect");
+const GROWL = document.querySelector("#growl");
 
-// * Action when the user clicks more than 3 times
 let clickCount = 0;
 const CLICK3 = document.querySelector("#click3");
-
-FIELD.addEventListener('click', () => {
-	clickCount++;
-	if (clickCount >= 3) {
-		OVERLAY.style.display = "block";
-		CLICK3.style.display = "flex";
-		clickCount = 0;
-		SCORE.textContent = 0;
-		clearInterval(INTERVAL)
-	}
-})
 
 // * Action when the time is up
 
@@ -151,6 +168,7 @@ function updateTimer() {
 		TIMER.textContent = timeLeft;
 	}
 	else {
+		GROWL.play();
 		clearInterval(INTERVAL)
 		SCORE.textContent = 0;
 		OVERLAY.style.display = "block";

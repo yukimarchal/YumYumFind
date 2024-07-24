@@ -64,6 +64,7 @@ body {
 	height: 100vh;
 	position: fixed;
 	z-index: 10;
+	color: black;
 
 	&>div{
 		flex-direction: column;
@@ -101,7 +102,7 @@ body {
 	justify-content: center;
 	height: 334px;
 	width: 320px;
-	margin-top: 100px;
+	margin-top: 70px;
 
 	/* title, field */
 	&>div {
@@ -113,7 +114,7 @@ body {
 		flex-direction: column;
 		font-size: 28px;
 		justify-content: center;
-		margin-bottom: 30px;
+		margin-bottom: 10px;
 		width: 288px;
 		#field{
 			position: relative;
@@ -161,7 +162,7 @@ body {
 			&>p {
 				display: flex;
 				justify-content: center;
-				font-size: 15px;
+				font-size: 14px;
 				font-weight: bold;
 				margin: 0;
 				padding: 0;
