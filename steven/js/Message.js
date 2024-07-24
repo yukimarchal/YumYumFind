@@ -5,15 +5,10 @@ export class Message {
 
     constructor(msg) {
         this.msg = msg
-
-        let tmp = new Image()
-        tmp.src = "assets/message.svg"
-        this.sprite = tmp
     }
 
     update = () => {
         let ctx = GameZone.context
-
 
         ctx.font = `5px PixelOperator`
         ctx.fillStyle = 'white'
