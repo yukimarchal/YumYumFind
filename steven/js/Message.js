@@ -13,7 +13,7 @@ export class Message {
 
         ctx.font = `5px PixelOperator`
         ctx.fillStyle = 'white'
-        ctx.globalAlpha = this.#calculateAlpha()
+        ctx.globalAlpha = GameZone.calculateAlpha(this.cpt, 0.20)
 
         const textWidth = ctx.measureText(this.msg).width
 
@@ -21,9 +21,5 @@ export class Message {
 
         ctx.globalAlpha = 1.00
         this.cpt--
-    }
-
-    #calculateAlpha = () => {
-        return Math.max(0, (this.cpt - 1) * 0.20);
     }
 }

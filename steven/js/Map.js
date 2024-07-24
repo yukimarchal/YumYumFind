@@ -17,7 +17,6 @@ export class Map {
             let ctx = tmpcan.getContext('2d')
             ctx.scale(GameZone.scale, GameZone.scale)
             ctx.drawImage(map, 0, 0)
-
             GameZone.canvas.style.backgroundImage = `url(${tmpcan.toDataURL()})`
             ctx.clearRect(0,0,tmpcan.width,tmpcan.height)
         }
