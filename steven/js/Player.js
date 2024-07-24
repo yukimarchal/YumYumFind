@@ -3,6 +3,7 @@ import {ATTACK, Character, DEATH, HIT, IDLE, WALK} from "./Character.js";
 import {PlayerHealthBar} from "./PlayerHealthBar.js";
 
 export class Player extends Character{
+    keys = 0
 
     constructor() {
         super()
@@ -60,7 +61,7 @@ export class Player extends Character{
     }
 
     updateHealthBar = () => {
-        this.healthbar.draw(this.maxhp, this.hp)
+        this.healthbar.update(this.maxhp, this.hp,undefined, undefined, this.keys)
     }
 
     rotate = (dx, dy) => {

@@ -1,3 +1,5 @@
+import {Key} from "./Key.js";
+
 export class GameZone {
     static scale = 4
     static pixel = 16
@@ -9,6 +11,13 @@ export class GameZone {
         this.map = map
         this.player = player
         this.monsters = monsters
+        this.keys = []
+
+        this.monsters.forEach((m) => {
+            let key = new Key()
+            m.addKey(key)
+            this.keys.push(key)
+        })
     }
 
     static resize = () => {
@@ -24,8 +33,8 @@ export class GameZone {
         if (window.grid)
             this.drawGrid(GameZone.pixel, GameZone.context, GameZone.canvas)
 
-        this.player.update()
         this.monsters.forEach((monster) => monster.update())
+        this.player.update()
 
         this.player.updateHealthBar()
 
@@ -65,6 +74,12 @@ export class GameZone {
 
             if (GameZone.noObstacle(this.player.x+dx, this.player.y+dy)) {
                 this.player.move(dx,dy)
+
+                let monster = GameZone.KeyIsPresent(this.player.x, this.player.y)
+                if (monster !== undefined && monster.key.isVisible) {
+                    monster.key.isVisible = false
+                    this.player.keys++
+                }
             }
             else {
                 this.player.rotate(dx,dy)
@@ -91,6 +106,10 @@ export class GameZone {
 
     static playerIsPresent = (x,y) => {
         return this.player.x === x && this.player.y === y && this.player.hp > 0
+    }
+
+    static KeyIsPresent = (x,y) => {
+        return this.monsters.find((m) => m.x === x && m.y === y && m.key.isVisible)
     }
 
     static clear = () => {

@@ -1,8 +1,9 @@
 import { GameZone } from "./Gamezone.js";
-import { Character } from "./Character.js";
+import {Character, DEATH} from "./Character.js";
 import {EnnemiesHealthBar} from "./EnnemiesHealthBar.js";
 
 export class Monster extends Character{
+    #idInteraval = undefined
 
     constructor(sprites, corr_x, corr_y, health_corr_x, health_corr_y, bonus_endu = 0, bonus_force = 0) {
         super()
@@ -22,7 +23,7 @@ export class Monster extends Character{
 
         this.healthbar = EnnemiesHealthBar
 
-        setInterval(this.#check, 1500)
+        this.#idInteraval = setInterval(this.#check, 1500)
     }
 
     #check = () => {
@@ -36,6 +37,11 @@ export class Monster extends Character{
             this.direction = "right"
             this.attack(GameZone.player)
         }
+
+    }
+
+    addKey = (key) => {
+        this.key = key
     }
 
     update = () => {
@@ -46,5 +52,16 @@ export class Monster extends Character{
         let position_y = (this.y - GameZone.player.y) * GameZone.pixel + position_joueur_y + this.correction_position_y
 
         this.drawImage(this.sprites[this.action][this.direction],position_x, position_y, this.hp !== this.maxhp && this.hp > 0)
+
+        this.key.update()
+
+        if (this.action === DEATH && this.#idInteraval !== undefined) {
+            this.key.x = this.x
+            this.key.y = this.y
+            this.key.isVisible = true
+
+            clearInterval(this.#idInteraval)
+            this.#idInteraval = undefined
+        }
     }
 }

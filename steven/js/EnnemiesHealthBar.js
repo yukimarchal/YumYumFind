@@ -16,7 +16,7 @@ export class EnnemiesHealthBar {
         this.#health_bar_sprites["frame"] = frame
     }
 
-    static draw = (maxhp, hp, x, y) => {
+    static update = (maxhp, hp, x, y) => {
         let ctx = GameZone.context
         ctx.drawImage(EnnemiesHealthBar.#health_bar_sprites["frame"], x, y)
 

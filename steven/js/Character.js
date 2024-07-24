@@ -74,7 +74,7 @@ export class Character {
         let debut_sprite_y = 0
 
         ctx.drawImage(image, debut_sprite_x, debut_sprite_y, this.longueur_sprite, this.hauteur_sprite, x, y, this.longueur_sprite, this.hauteur_sprite)
-        if (isHealthBar) this.healthbar.draw(this.maxhp, this.hp,x+this.health_corr_x,y+this.health_corr_y)
+        if (isHealthBar) this.healthbar.update(this.maxhp, this.hp,x+this.health_corr_x,y+this.health_corr_y)
 
         //(Continue les animations tant que l'animation de mort n'est pas termine)
         if (!(this.action === DEATH && this.cpt%nbframe === nbframe-1))
@@ -104,7 +104,7 @@ export class Character {
         this.cpt = 0
 
         if (target !== undefined) {
-            let damage = this.sommeMeilleursLances(De.QuatreFace.QuatreLance(),4) + this.applyModificator(this.force)
+            let damage = this.sommeMeilleursLances(De.QuatreFace.QuatreLance(),3) + this.applyModificator(this.force)
             target.hit(damage)
         }
     }
