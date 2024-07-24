@@ -65,7 +65,7 @@ function coupPerdu(e) {
 function coupJouer(e) {
     e.stopPropagation()
     console.log('e.target', e.target)
-    const coupCorrect = coup.classList.contains(playerJoue)
+    const coupCorrect = coup.firstChild.classList.contains(playerJoue)
     const pris = e.target.classList.contains('pieces')
     const valid = coupPossible(e.target)
     const premierJoueur = playerJoue === 'white' ? 'black' : 'white'
@@ -121,13 +121,13 @@ function coupPossible(target) {
                 positionInit + width * 2 - 1 === cibleId ||
                 positionInit + width - 2 === cibleId ||
                 positionInit + width + 2 === cibleId ||
-                positionInit + width * 2 + 1 === cibleId ||
-                positionInit + width * 2 - 1 === cibleId ||
-                positionInit + width - 2 === cibleId ||
-                positionInit + width + 2 === cibleId
+                positionInit - width * 2 + 1 === cibleId ||
+                positionInit - width * 2 - 1 === cibleId ||
+                positionInit - width - 2 === cibleId ||
+                positionInit - width + 2 === cibleId
             ) {
                 return true
-            }
+            } break;
         case 'Fou' : 
             if (
                 positionInit + width + 1 === cibleId ||
@@ -163,8 +163,7 @@ function coupPossible(target) {
                 positionInit - width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 + 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 7 + 7}"]`).firstChild
             ) {
                 return true
-            }
-            break;
+            } break;
             case 'Tour' : 
             if(
                 positionInit + width === cibleId ||
