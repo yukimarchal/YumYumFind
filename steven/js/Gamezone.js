@@ -153,7 +153,7 @@ export class GameZone {
                 this.player.rotate(dx,dy)
             }
         }
-        else if (e.code === "Space") {
+        else if (e.keyCode === 32) {
             let coordAttack = this.player.coordAttack()
             let monster = GameZone.monsterIsPresent(coordAttack.x, coordAttack.y)
             this.player.attack(monster)
@@ -173,12 +173,13 @@ export class GameZone {
                 }
             }
         }
-        else if (e.code === "KeyR" && GameZone.endOfGame){
+        else if (e.keyCode === 82 && GameZone.endOfGame){
             window.location.href = "./"
         }
-        else if (e.code === "Semicolon" && GameZone.endOfGame){
+        else if (e.keyCode === 77 && GameZone.endOfGame){
             window.location.href = "../"
         }
+        console.log(e)
     }
 
     static #newMessage = (msg) => {
