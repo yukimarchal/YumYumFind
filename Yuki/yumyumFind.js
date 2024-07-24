@@ -55,7 +55,7 @@ const FIELD = document.querySelector("#field");
 const TARGET = document.querySelector("#targetEmoji");
 const TIMEUP = document.querySelector("#timeUp");
 const TIMER = document.querySelector("#timer");
-
+const SCORE = document.querySelector("#score");
 
 function Play() {
 	// * Shuffle the emoji list
@@ -67,7 +67,7 @@ function Play() {
 	}
 
 	// * Add new P emojis, add info and insert into html
-	let positionX = 229
+	let positionX = 218;
 	let positionY = -8;
 	let positionZ = PositionRandom();
 
@@ -84,7 +84,7 @@ function Play() {
 		// * Return to next row
 		if (i == 6 || i == 13 || i == 20 || i == 27 || i == 34 || i == 41) {
 			positionY -= 34;
-			positionX = 229;
+			positionX = 218;
 		}
 		FIELD.append(newP);
 	}
@@ -110,19 +110,20 @@ function Play() {
 	target.addEventListener('click', () => {
 		clearInterval(INTERVAL);
 		OVERLAY.style.display = "block";
-		FOUND.style.display = "block";
+		FOUND.style.display = "flex";
 		clickCount = 0;
+		SCORE.textContent = parseInt(SCORE.textContent) + 1;
 	})
 	
 	TARGET.textContent = target.textContent;
 }
 
-Play(60);
+Play();
 
 // * Popups
 const OVERLAY = document.querySelector("#overlay");
 const FOUND = document.querySelector("#found");
-
+const POPUPS = document.querySelectorAll("#found, #click3, #timeUp")
 
 // * Action when the user clicks more than 3 times
 let clickCount = 0;
@@ -132,15 +133,16 @@ FIELD.addEventListener('click', () => {
 	clickCount++;
 	if (clickCount >= 3) {
 		OVERLAY.style.display = "block";
-		CLICK3.style.display = "block";
+		CLICK3.style.display = "flex";
 		clickCount = 0;
+		SCORE.textContent = 0;
 		clearInterval(INTERVAL)
 	}
 })
 
 // * Action when the time is up
 
-let timeLeft = 30;
+let timeLeft = 5000;
 TIMER.textContent = timeLeft;
 
 function updateTimer() {
@@ -150,8 +152,9 @@ function updateTimer() {
 	}
 	else {
 		clearInterval(INTERVAL)
+		SCORE.textContent = 0;
 		OVERLAY.style.display = "block";
-		TIMEUP.style.display = "block";
+		TIMEUP.style.display = "flex";
 	}
 }
 let INTERVAL = setInterval(updateTimer, 1000);

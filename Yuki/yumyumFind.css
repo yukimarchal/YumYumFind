@@ -3,93 +3,126 @@
 	src: url("./caveat/Caveat-VariableFont_wght.ttf");
 }
 
-html>*{
+html{
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	justify-content: center;
 }
 
 body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	font-family: Caveat;
 	font-size: 28px;
-	height: 600px;
+	height: 100vh;
+	width: 320px;
 	margin: 0;
-	width: 100%;
 }
+
+#menu{
+	position: absolute;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+	color: white;
+	background-color: brown;
+	margin: 0;
+	padding: 0;
+}
+#footer{
+	/* display: none; */
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+	
+	color: white;
+	background-color: brown;
+	margin: 0;
+	padding: 0;
+}
+
 #overlay{
 	display: none;
 	position: absolute;
 	z-index: 9;
 	height: 100vh;
-	width: 50vh;
+	width: 100vw;
 	background-color: rgba(255, 255, 255, 0.8);
 }
 
 #popUp{
+	/* found, click3, timeUp */
+	background-image: url("./1368560.png");
+	font-size: 20px;
+	background-repeat: no-repeat;
+	background-size: 400px;
+	background-position: center center;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	z-index: 10;
+
 	&>div{
+		flex-direction: column;
 		display: none;
-		font-size: 22px;
-		background-color: white;
-		box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2) ;
-		border-radius: 20px;
-		position: fixed;
-		top: calc(50% - 300px/2);
-		left: calc(50% - 300px/2);
-		width: 300px;
-		height: 300px;
-		z-index: 10;
 		text-align: center;
+		justify-content: center;
+		width: 100vw;
+		height: 100vh;
 		&>p{
-			margin: 6px;
+			margin: 2px;
 		}
 		.difficulty{
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			/* easy, normal, difficult */
 			&>button{
+				background-color: whitesmoke;
 				font-family: Caveat;
 				font-weight: bold;
-				font-size: 24px;
-				width: 50%;
-				padding: 4px;
-				margin: 8px;
+				font-size: 22px;
+				width: 150px;
+				margin: 4px;
 				cursor: pointer;
+				border-radius: 10px;
+				border-style: none;
 			}
 		}
-	}
-	#timeUp{
-		display: none;
 	}
 }
 
 
 #game {
-	margin-top: 20%;
 	display: flex;
 	justify-content: center;
-	height: 50%;
-	width: 350px;
+	height: 334px;
+	width: 320px;
+	margin-top: 100px;
 
+	/* title, field */
 	&>div {
-		/* overflow: hidden; */
 		align-items: center;
 		border-style: solid;
 		border-radius: 15px;
 		border-width: 3px;
 		display: flex;
 		flex-direction: column;
-		font-size: 100%;
+		font-size: 28px;
 		justify-content: center;
-		margin-bottom: 5%;
-		width: 80%;
-		&>div{
+		margin-bottom: 30px;
+		width: 288px;
+		#field{
 			position: relative;
-			width: 100%;
+			width: 256px;
+
+			/* emojis */
 			&>p{
 				font-size: 40px;
 				position: absolute;
-				top: 10px;
-				right: 245px;
 				cursor: pointer;
 			}
 		}
@@ -99,50 +132,36 @@ body {
 			border-radius: 50%;
 			border-width: 3px;
 			font-weight: bold;
-			padding: 3%;
+			padding: 8px;
 			position: relative;
 			text-align: center;
 			top: -50%;
-			width: 60%;
+			width: 173px;
 		}
 	}
 }
 
 #info {
+	width: 320px;
 	display: flex;
-	width: 350px;
-
-	&>* {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
+	justify-content: start;
 
 	#cat {
-		width: 50%;
-
 		img {
-			width: 100%;
+			width: 170px;
 		}
 	}
 
 	#speechBubble_timer {
-		display: flex;
-		flex-direction: column;
-		width: 45%;
-
 		&>div {
 			display: flex;
 			flex-direction: column;
-				justify-content: center;
-				align-items: center;
-			width: 100%;
-			height: 100%;
+			width: 144px;
+			height: 80px;
 			&>p {
 				display: flex;
 				justify-content: center;
-				align-items: center;
-				font-size: 60%;
+				font-size: 15px;
 				font-weight: bold;
 				margin: 0;
 				padding: 0;
@@ -156,189 +175,118 @@ body {
 			justify-content: center;
 			background-image: url("./speechBubble/Group.svg");
 			background-repeat: no-repeat;
-			background-size: 100%;
-			
+			background-size: 144px;
+
 			#targetEmoji {
 				display: flex;
 				align-items: center;
-				width: 100%;
-				height: 50%;
-				font-size: 150%;
-				margin-bottom: 30%;
-				margin-top: 4px;
+				font-size: 42px;
+				margin-bottom: 50px;
+				margin-top: 30px;
+			}
+			&>div:nth-child(2){
+				#score{
+					margin-left: 3px;
+				}
 			}
 		}
 	}
 }
+@media screen and (min-width: 425px) {
+	
+	body {
+		font-size: 28px;
+		height: 832px;
+		width: 425px;
+	}
+	
+	#game {
+		margin-top: 110px;
+		transform: scale(1.1);
+		}
+	#info{
+		margin-top: 30px;
+		transform: scale(1.1);
+	}
+	#popUp{
+		/* found, click3, timeUp */
+		transform: scale(1.2);
+		height: 832px;
+	
+		&>div{
+			height: 832px;
+		}
+	}
+}
+
 
 @media screen and (min-width: 768px) {
-	
-	/* body {
-		font-size: 60px;
+	body {
+		font-size: 28px;
+		height: 832px;
+		width: 768px;
 	}
 	
 	#game {
-		width: 768px;
+		margin-top: 150px;
+		transform: scale(1.3);
+		}
+	#info{
+		margin-top: 80px;
+		transform: scale(1.3);
 	}
-	
-	#info {
-		display: flex;
-		width: 768px;
-	}
-	#targetEmoji{
-		align-items: center;
-	} */
-}
-
-@media screen and (min-width: 1440px) {
-}
-
-
-/* @media screen and (min-width: 1440px) {
-	html>*{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	
-	body {
-		font-family: Caveat;
-		font-size: 80px;
+	#popUp{
+		/* found, click3, timeUp */
+		transform: scale(1.4);
 		height: 100vh;
-		margin: 0;
-		width: 100%;
-	}
 	
-	#game {
-		margin-top: 20%;
-		display: flex;
-		justify-content: center;
-		height: 50%;
-		width: 1440px;
-	
-		#field {
-			align-items: center;
-			border-style: solid;
-			border-radius: 15px;
-			border-width: 3px;
-			display: flex;
-			flex-direction: column;
-			font-size: 100%;
-			justify-content: center;
-			margin-bottom: 5%;
-			width: 80%;
-	
-			&>p {
-				background-color: white;
-				border-style: solid;
-				border-radius: 50%;
-				border-width: 3px;
-				font-weight: bold;
-				padding: 3%;
-				position: relative;
-				text-align: center;
-				top: -50%;
-				width: 60%;
-			}
+		&>div{
+			height: 100vh;
 		}
 	}
-	
-	#info {
-		display: flex;
-		width: 1440px;
-	
-		&>* {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
-	
-		#cat {
-			width: 50%;
-	
-			img {
-				width: 100%;
-			}
-		}
-	
-		#speechBubble_timer {
-			display: flex;
-			flex-direction: column;
-			width: 45%;
-	
-			&>div {
-				display: flex;
-				flex-direction: column;
-					justify-content: center;
-					align-items: center;
-				width: 100%;
-				height: 100%;
-				&>p {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					font-size: 60%;
-					font-weight: bold;
-					margin: 0;
-					padding: 0;
-				}
-			}
-			&>div:nth-child(1){
-				display: flex;
-				justify-content: center;
-				background-image: url("./speechBubble/Group.svg");
-				background-repeat: no-repeat;
-				background-size: 100%;
-				
-				#targetEmoji {
-					display: flex;
-					align-items: center;
-					width: 100%;
-					height: 50%;
-					font-size: 150%;
-					margin-bottom: 15%;
-					margin-top: 4px;
-				}
-			}
-		}
-	}
-
-
+}
+@media screen and (min-width: 1024px) {
 	body {
-		align-items: center;
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
-		font-size: 80px;
+		justify-content: space-around;
+		align-items: center;
+		height: 832px;
+		width: 1024px;
 	}
-	
 	#game {
-		width: 1440px;
-		margin-top: 0;
-		#field{
-			width: 100%;
-		}
+		margin-top: 100px;
+		transform: scale(1.6);
 	}
-	
 	#info {
+		margin-top: 300px;
+		transform: scale(1.6);
+	}
+}
+@media screen and (min-width: 1440px) {
+	body {
 		display: flex;
-		justify-content: center;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		height: 832px;
 		width: 1440px;
-		#cat{
-			display: flex;
-			align-items: end;
-			width: 100%;
-		}
-		#speechBubble_timer{
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			width: 100%;
-			&>div:nth-child(2){
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-			}
+	}
+	#game {
+		margin-top: 100px;
+		transform: scale(2.2);
+	}
+	#info {
+		margin-top: 300px;
+		transform: scale(2.2);
+	}
+	#popUp{
+		/* found, click3, timeUp */
+		transform: scale(1.8);
+		height: 100vh;
+	
+		&>div{
+			height: 100vh;
 		}
 	}
-} */
+}
