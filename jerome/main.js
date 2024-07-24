@@ -115,7 +115,7 @@ function coupPossible(target) {
                 return true
             }
             break;
-        case 'Cavaliers' :
+        case 'Cavalier' :
             if(
                 positionInit + width * 2 + 1 === cibleId ||
                 positionInit + width * 2 - 1 === cibleId ||
@@ -314,14 +314,14 @@ function revertIds() {
 }
 
 function echecetmat() {
-    const kings = Array.from(document.querySelectorAll('#king'))
+    const kings = Array.from(document.querySelectorAll('#Roi'))
     console.log('kings')
-    if (kings.some(king => king.firstChild.classList.contains('white'))) {
+    if (!kings.some(king => king.firstChild.classList.contains('white'))) {
         infoAffich.innerHTML = "Les noirs ont gagnés !!!"
         const allCarres = document.querySelectorAll('.carre')
         allCarres.forEach(carre => carre.firstChild?.setAttribute('draggable', false))
     }
-    if (kings.some(king => king.firstChild.classList.contains('black'))) {
+    if (!kings.some(king => king.firstChild.classList.contains('black'))) {
         infoAffich.innerHTML = "Les blancs ont gagnés !!!"
         const allCarres = document.querySelectorAll('.carre')
         allCarres.forEach(carre => carre.firstChild?.setAttribute('draggable', false))
