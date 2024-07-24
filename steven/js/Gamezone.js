@@ -8,6 +8,8 @@ export class GameZone {
     static canvas = document.getElementById("canvas")
     static context = GameZone.canvas.getContext('2d')
     static #messages = []
+    static endOfGame = false
+    static cpt_eog = 25
 
     static init = (map, player, monsters) => {
         this.resize()
@@ -22,6 +24,27 @@ export class GameZone {
             m.addKey(key)
             this.keys.push(key)
         })
+
+        this.rkey = new Image()
+        this.rkey.src = "assets/keyboard/r.svg"
+
+        this.mkey = new Image()
+        this.mkey.src = "assets/keyboard/m.svg"
+
+        this.upkey = new Image()
+        this.upkey.src = "assets/keyboard/arrow_up.svg"
+
+        this.leftkey = new Image()
+        this.leftkey.src = "assets/keyboard/arrow_left.svg"
+
+        this.downkey = new Image()
+        this.downkey.src = "assets/keyboard/arrow_down.svg"
+
+        this.rightkey = new Image()
+        this.rightkey.src = "assets/keyboard/arrow_right.svg"
+
+        this.spacekey = new Image()
+        this.spacekey.src = "assets/keyboard/space.svg"
     }
 
     static resize = () => {
@@ -32,10 +55,13 @@ export class GameZone {
 
     static gameloop = () => {
         this.clear()
+        let ctx = GameZone.context
+        ctx.globalAlpha =  this.calculateAlpha(GameZone.cpt_eog, 0.15)
+
         this.map.update()
 
         if (window.grid)
-            this.drawGrid(GameZone.pixel, GameZone.context, GameZone.canvas)
+            this.drawGrid(GameZone.pixel, ctx, GameZone.canvas)
 
         this.chest.update()
 
@@ -44,9 +70,43 @@ export class GameZone {
 
         this.player.updateHealthBar()
 
+        ctx.drawImage(this.spacekey,(GameZone.canvas.width / 4)-85, (GameZone.canvas.height / 4)-15, 42, 12)
+        ctx.drawImage(this.upkey,(GameZone.canvas.width / 4)-28, (GameZone.canvas.height / 4)-28, 12, 12)
+        ctx.drawImage(this.leftkey,(GameZone.canvas.width / 4)-41, (GameZone.canvas.height / 4)-15, 12, 12)
+        ctx.drawImage(this.downkey,(GameZone.canvas.width / 4)-28, (GameZone.canvas.height / 4)-15, 12, 12)
+        ctx.drawImage(this.rightkey,(GameZone.canvas.width / 4)-15, (GameZone.canvas.height / 4)-15, 12, 12)
+
         this.#showMessage()
 
+        ctx.globalAlpha = 1.0
+
+        if (GameZone.endOfGame) {
+            ctx.globalAlpha = this.calculateAlpha(-(GameZone.cpt_eog-5), 0.35)
+
+            ctx.fillStyle = "black"
+            ctx.fillRect(0,0,this.canvas.width,this.canvas.height)
+
+            const msg = (this.chest.isOpen) ? "Tu as libéré le canard 🦆" : "Tu as perdu 😒"
+            ctx.font = `5px PixelOperator`
+            ctx.fillStyle = 'white'
+            const textWidth = ctx.measureText(msg).width
+            ctx.fillText(msg, (GameZone.canvas.width / 4 / 2) - textWidth/2, (GameZone.canvas.height / 4 / 2))
+
+            ctx.drawImage(this.rkey,(GameZone.canvas.width / 4 / 2) - textWidth/2, (GameZone.canvas.height / 4 / 2)+8, 8,8)
+            ctx.fillText("recommencer", (GameZone.canvas.width / 4 / 2) - textWidth/2 + 12, (GameZone.canvas.height / 4 / 2)+15)
+
+            ctx.drawImage(this.mkey,(GameZone.canvas.width / 4 / 2) - textWidth/2, (GameZone.canvas.height / 4 / 2)+20, 8,8)
+            ctx.fillText("menu principal", (GameZone.canvas.width / 4 / 2) - textWidth/2 + 12, (GameZone.canvas.height / 4 / 2)+27)
+
+            GameZone.cpt_eog--
+        }
+
         //requestAnimationFrame(GameZone.gameloop)
+    }
+
+    static calculateAlpha = (cpt, facteur) => {
+        return Math.min(1, Math.max(0, (cpt - 1) * facteur))
+
     }
 
     static drawGrid = (spritesize, ctx, canvas) => {
@@ -105,12 +165,19 @@ export class GameZone {
                 }
                 else if (this.player.keys === this.monsters.length) {
                     this.chest.isOpen = true
+                    this.endOfGame = true
                     GameZone.#newMessage("Tu as libéré le canard !")
                 }
                 else {
                     GameZone.#newMessage(`Il manque ${this.monsters.length-this.player.keys} clé(s)`)
                 }
             }
+        }
+        else if (e.code === "KeyR" && GameZone.endOfGame){
+            window.location.href = "./"
+        }
+        else if (e.code === "Semicolon" && GameZone.endOfGame){
+            window.location.href = "../"
         }
     }
 
@@ -129,27 +196,15 @@ export class GameZone {
         return !GameZone.monsterIsPresent(x, y) && !GameZone.wallIsPresent(x, y) && !GameZone.chestIsPresent(x,y)
     }
 
-    static wallIsPresent = (x,y) => {
-        return this.map.wallIsPresent(x,y)
-    }
+    static wallIsPresent = (x,y) => this.map.wallIsPresent(x,y)
 
-    static monsterIsPresent = (x,y) => {
-        return this.monsters.find((e) => e.x === x && e.y === y && e.hp > 0)
-    }
+    static monsterIsPresent = (x,y) => this.monsters.find((e) => e.x === x && e.y === y && e.hp > 0)
 
-    static chestIsPresent = (x,y) => {
-        return this.chest.x === x && this.chest.y === y
-    }
+    static chestIsPresent = (x,y) => this.chest.x === x && this.chest.y === y
 
-    static playerIsPresent = (x,y) => {
-        return this.player.x === x && this.player.y === y && this.player.hp > 0
-    }
+    static playerIsPresent = (x,y) => this.player.x === x && this.player.y === y && this.player.hp > 0
 
-    static KeyIsPresent = (x,y) => {
-        return this.monsters.find((m) => m.x === x && m.y === y && m.key.isVisible)
-    }
+    static KeyIsPresent = (x,y) => this.monsters.find((m) => m.x === x && m.y === y && m.key.isVisible)
 
-    static clear = () => {
-        this.context.clearRect(0,0,this.canvas.width,this.canvas.height)
-    }
+    static clear = () => this.context.clearRect(0,0,this.canvas.width,this.canvas.height)
 }

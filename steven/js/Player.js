@@ -54,6 +54,8 @@ export class Player extends Character{
     }
 
     update = () => {
+        if (this.action === DEATH && !GameZone.endOfGame) GameZone.endOfGame = true
+
         let position_x = Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel + this.correction_position_x
         let position_y = Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel + this.correction_position_y
 
