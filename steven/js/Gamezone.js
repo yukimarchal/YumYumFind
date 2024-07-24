@@ -1,10 +1,13 @@
 import {Key} from "./Key.js";
+import {Chest} from "./Chest.js";
+import {Message} from "./Message.js";
 
 export class GameZone {
     static scale = 4
     static pixel = 16
     static canvas = document.getElementById("canvas")
     static context = GameZone.canvas.getContext('2d')
+    static #messages = []
 
     static init = (map, player, monsters) => {
         this.resize()
@@ -12,6 +15,7 @@ export class GameZone {
         this.player = player
         this.monsters = monsters
         this.keys = []
+        this.chest = new Chest(14,3)
 
         this.monsters.forEach((m) => {
             let key = new Key()
@@ -33,10 +37,14 @@ export class GameZone {
         if (window.grid)
             this.drawGrid(GameZone.pixel, GameZone.context, GameZone.canvas)
 
+        this.chest.update()
+
         this.monsters.forEach((monster) => monster.update())
         this.player.update()
 
         this.player.updateHealthBar()
+
+        this.#showMessage()
 
         //requestAnimationFrame(GameZone.gameloop)
     }
@@ -89,11 +97,34 @@ export class GameZone {
             let coordAttack = this.player.coordAttack()
             let monster = GameZone.monsterIsPresent(coordAttack.x, coordAttack.y)
             this.player.attack(monster)
+
+            let isChest = GameZone.chestIsPresent(coordAttack.x, coordAttack.y)
+            if (isChest) {
+                if (this.player.keys === this.monsters.length) {
+                    GameZone.#newMessage("Tu as libéré le canard !")
+                    this.chest.isOpen = true
+                }
+                else {
+                    GameZone.#newMessage(`Il manque ${this.monsters.length-this.player.keys} clé(s)`)
+                }
+            }
         }
     }
 
+    static #newMessage = (msg) => {
+        this.#messages.push(new Message(msg))
+    }
+
+    static #showMessage = () => {
+        this.#messages.forEach((m, i) => {
+            m.update()
+        })
+
+        this.#messages = this.#messages.filter(m => m.cpt !== 0)
+    }
+
     static noObstacle = (x,y) => {
-        return !GameZone.monsterIsPresent(x, y) && !GameZone.wallIsPresent(x, y)
+        return !GameZone.monsterIsPresent(x, y) && !GameZone.wallIsPresent(x, y) && !GameZone.chestIsPresent(x,y)
     }
 
     static wallIsPresent = (x,y) => {
@@ -102,6 +133,10 @@ export class GameZone {
 
     static monsterIsPresent = (x,y) => {
         return this.monsters.find((e) => e.x === x && e.y === y && e.hp > 0)
+    }
+
+    static chestIsPresent = (x,y) => {
+        return this.chest.x === x && this.chest.y === y
     }
 
     static playerIsPresent = (x,y) => {

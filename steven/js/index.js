@@ -48,6 +48,7 @@ GameZone.init(map, joueur, [gobelin, slime])
 PlayerHealthBar.init()
 EnnemiesHealthBar.init()
 
+window.gz = GameZone
 window.joueur = joueur
 window.gobelin = gobelin
 window.slime = slime
