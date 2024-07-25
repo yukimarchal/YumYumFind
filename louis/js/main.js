@@ -81,7 +81,7 @@ function run(){
             }else{
                 score -=10
                 life -=1
-                console.log("toucher")
+                
                 
             }
             time -=10
@@ -115,7 +115,7 @@ function run(){
 
         }else if (timeout === 0 && life > 0){
 
-            GAMEOVER.textContent ='patie terminer ! '
+            GAMEOVER.textContent ='Partie terminée !'
             Session.win("louis")
         }else{
             GAMEOVER.textContent ='GAME OVER !'
