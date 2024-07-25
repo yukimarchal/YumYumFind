@@ -7,11 +7,25 @@ body {
     background-color: cadetblue;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
 #plateau {
     width: 800px;
     height: 800px;
     display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px; /* Ajoute de l'espace entre le plateau et le joueur */
+}
+
+.affich {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -47,13 +61,14 @@ path {
     background-color: blue;
 }
 
-.black {
+.black, .black path {
     fill: black;
 }
 
-.white {
+.white, .white path {
     fill: white;
 }
+
 .yellow {
     fill: yellow;
 }

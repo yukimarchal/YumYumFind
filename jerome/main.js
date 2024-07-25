@@ -39,7 +39,7 @@ function affichPlateau() {
             carre.firstChild.firstChild.classList.add('white')
         }
         if (i === 36 && carre.firstChild) {
-            carre.firstChild.firstChild.classList.add('yellow') 
+            carre.firstChild.firstChild.classList.add('black') 
         }
         plaTeau.append(carre)
     })
@@ -84,7 +84,7 @@ function coupJouer(e) {
                 joueurSuivant()
             } return
         }else {
-            infoAffich.textContent = "Vous ne pouvez pas joué ce coup"
+            infoAffich.textContent = "joue d'abord un Pion"
             setTimeout (() => infoAffich.textContent = "", 2000)
             return;
         }
@@ -122,15 +122,34 @@ function coupPossible(target) {
     console.log('pieces' , pieces)
 
     switch(pieces) {
-        case 'Pion' :
-            const startLigne = [8,9,10,11,12,13,14,15]
-            if(
-                startLigne.includes(positionInit) && positionInit + width * 2 === cibleId ||
-                positionInit + width === cibleId ||
-                positionInit + width === cibleId && document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild ||
-                positionInit + width === cibleId && document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild 
+        case 'Pion':
+            const startLigne = [8, 9, 10, 11, 12, 13, 14, 15];
+            if (
+              startLigne.includes(positionInit) && positionInit + width * 2 === cibleId &&
+            !document.querySelector(`[carre-id="${positionInit + width}"]`).firstChild &&
+            !target.firstChild
             ) {
-                return true
+            return true;
+            }
+            if (
+            positionInit + width === cibleId &&
+            !target.firstChild
+            ) {
+            return true;
+            }
+            if (
+            positionInit + width === cibleId &&
+            document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild &&
+            document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild.classList.contains(playerJoue === 'white' ? 'black' : 'white')
+            ) {
+            return true;
+            }
+            if (
+            positionInit + width === cibleId &&
+            document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild &&
+            document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild.classList.contains(playerJoue === 'white' ? 'black' : 'white')
+            ) {
+            return true;
             }
             break;
         case 'Cavalier' :
@@ -320,13 +339,23 @@ function joueurSuivant() {
         reverseIds()
         playerJoue = "white"
         affichJoueur.textContent = 'white'
+        changeDuckColor('white') // Ajoutez cette ligne
     } else {
         revertIds()
         playerJoue = "black"
         affichJoueur.textContent = 'black'
+        changeDuckColor('black') // Ajoutez cette ligne
     }
     canardDeplace = false
     pieceDeplace = false
+}
+
+function changeDuckColor(color) {
+    const duck = document.querySelector('#Duck')
+    if (duck) {
+        duck.firstChild.classList.remove('black', 'white')
+        duck.firstChild.classList.add(color)
+    }
 }
 
 function reverseIds() {
@@ -354,3 +383,4 @@ function echecetmat() {
         allCarres.forEach(carre => carre.firstChild?.setAttribute('draggable', false))
     }
 }
+
