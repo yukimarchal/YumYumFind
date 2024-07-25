@@ -4,9 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="./tanard_chanard_v02.ico" type="image/x-icon">
 	<link rel="stylesheet" href="yumyumFind.css">
+	<script src="./Commun.js" defer></script>
 	<script src="yumyumFind.js" defer></script>
-	<title>Document</title>
+	<title>YumYumFind</title>
 </head>
 
 <body>
@@ -46,8 +48,8 @@
 				</div>
 			</div>
 			<div id="toin">
-				<p>Toin toin! You found me 🐤</p>
-				<p>You've got 50 points!</p>
+				<p>Toin toin! You found me <img src="./tanard_chanard_outlined.png" alt=""></p>
+				<p>"Chanard" gave you 30 points!</p>
 				<p>Choose the difficulty and play again!</p>
 				<div class="difficulty">
 					<button class="easy">Easy</button>
@@ -69,7 +71,7 @@
 			</div>
 			<div id="speechBubble_timer">
 				<div>
-					<p id="targetEmoji">😋</p>
+					<p id="targetEmoji"></p>
 					<audio id="yay" src="./audio/yay-6120.mp3"></audio>
 					<audio id="incorrect" src="./audio/notification-sound-error-sound-effect-203788.mp3"></audio>
 					<audio id="fail" src="./audio/cat growl.mp3"></audio>
@@ -78,8 +80,9 @@
 				<div>
 					<p>You have <span id="timer"></span>s</p>
 					<p>...before the cat gets angry</p>
-					<p id="line">______________________</p>
-					<p id="yourScore">Your score : <span id="score">0</span></p>
+					<p>______________________</p>
+					<p>Your score : <span id="score">0</span></p>
+					<p>Your best score : <span id="best">0</span></p>
 				</div>
 			</div>
 		</section>
