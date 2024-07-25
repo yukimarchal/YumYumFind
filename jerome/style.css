@@ -15,8 +15,8 @@ body {
 }
 
 #plateau {
-    width: 800px;
-    height: 800px;
+    width: 640px;
+    height: 640px;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 20px; /* Ajoute de l'espace entre le plateau et le joueur */
@@ -27,17 +27,18 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    height: 10vh;
 }
 
 .carre {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     position: relative;
 }
 
 .carre svg {
-    height: 65px;
-    width: 65px;
+    height: 55px;
+    width: 55px;
     margin: 15px;
     position: relative;
     z-index: -9;
