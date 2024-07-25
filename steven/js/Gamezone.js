@@ -164,6 +164,7 @@ export class GameZone {
                     GameZone.#newMessage("Tu vas tuer le canard avec ton épée 🤬")
                 }
                 else if (this.player.keys === this.monsters.length) {
+                    Session.win("steven")
                     this.chest.isOpen = true
                     this.endOfGame = true
                     GameZone.#newMessage("Tu as libéré le canard !")

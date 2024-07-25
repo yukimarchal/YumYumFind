@@ -44,6 +44,7 @@ const slime = new Monster({
     }
 }, -24, -27, 12, 8, 1, 0)
 
+Session.createIfNotExists("steven")
 GameZone.init(map, joueur, [gobelin, slime])
 PlayerHealthBar.init()
 EnnemiesHealthBar.init()
