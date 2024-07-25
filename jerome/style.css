@@ -19,7 +19,7 @@ body {
     height: 640px;
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 20px; /* Ajoute de l'espace entre le plateau et le joueur */
+    margin-bottom: 20px;
 }
 
 .affich {

@@ -342,12 +342,12 @@ function joueurSuivant() {
         reverseIds()
         playerJoue = "white"
         affichJoueur.textContent = 'white'
-        changeDuckColor('white') // Ajoutez cette ligne
+        changeDuckColor('white')
     } else {
         revertIds()
         playerJoue = "black"
         affichJoueur.textContent = 'black'
-        changeDuckColor('black') // Ajoutez cette ligne
+        changeDuckColor('black')
     }
     canardDeplace = false
     pieceDeplace = false
