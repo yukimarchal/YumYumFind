@@ -4,6 +4,9 @@
 }
 
 body {
+	background-image: url("./sky-7232494_640.webp");
+	background-repeat: no-repeat;
+	background-size: cover;
 	font-family: Caveat;
 	margin: 0;
 	display: flex;
@@ -26,8 +29,8 @@ body {
 #footer {
 	font-size: 12px;
 	width: 100vw;
-	color: white;
-	background-color: brown;
+	color: whitesmoke;
+	background-color: rgb(171, 121, 250);
 	text-align: center;
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -78,8 +81,8 @@ body {
 
 			/* easy, normal, difficult */
 			&>button {
-				background-color: whitesmoke;
 				font-family: Caveat;
+				color: white;
 				font-weight: bold;
 				font-size: 22px;
 				width: 150px;
@@ -87,6 +90,15 @@ body {
 				cursor: pointer;
 				border-radius: 10px;
 				border-style: none;
+			}
+			&>button:nth-child(1){
+				background-color: chartreuse;
+			}
+			&>button:nth-child(2){
+				background-color: rgb(102, 212, 244);
+			}
+			&>button:nth-child(3){
+				background-color: rgb(255, 0, 0);
 			}
 		}
 	}
@@ -110,6 +122,7 @@ body {
 		border-style: solid;
 		border-radius: 15px;
 		border-width: 3px;
+		/* box-shadow: 0 0 10px chartreuse; */
 
 		/* emojis */
 		&>p {
@@ -121,8 +134,11 @@ body {
 
 	#title {
 		font-size: 28px;
-		background-color: white;
+		background-image: url("./sky-7232494_640.webp");
+		color: black;
 		border-style: solid;
+		border-color: black;
+		/* box-shadow: 0 0 10px chartreuse; */
 		border-radius: 50%;
 		border-width: 3px;
 		font-weight: bold;
@@ -166,7 +182,7 @@ body {
 				justify-content: center;
 				font-size: 12px;
 				font-weight: bold;
-				margin: 0;
+				margin: 0px;
 				padding: 0;
 
 				&>span {
@@ -181,6 +197,7 @@ body {
 			background-image: url("./speechBubble/Group.svg");
 			background-repeat: no-repeat;
 			background-size: 144px;
+
 
 			#targetEmoji {
 				display: flex;
@@ -200,6 +217,9 @@ body {
 	}
 }
 
+/* #yourScore{
+	box-shadow: 0 5px 10px rgba(127, 255, 0, 0.8);
+} */
 @keyframes fadeIn {
 	from {
 		opacity: 0;

@@ -58,8 +58,13 @@ const TIMER = document.querySelector("#timer");
 const SCORE = document.querySelector("#score");
 const YAY = document.querySelector("#yay");
 const POPUP = document.querySelector("#popUp");
+const TOIN = document.querySelector("#toin");
+const QUACK = document.querySelector("#quack");
+let foundDuck = false;
 let fieldEmojis;
 let target;
+let duck;
+let level = 1;
 
 function Play() {
 	// * Shuffle the emoji list
@@ -120,33 +125,50 @@ function Play() {
 		POPUP.style.display = "flex";
 		FOUND.style.display = "flex";
 		clickCount = 0;
-		SCORE.textContent = parseInt(SCORE.textContent) + 1;
+		SCORE.textContent = parseInt(SCORE.textContent) + level;
 	})
-	
+	if (!foundDuck) {
+		duck = document.querySelector(`#field p:nth-child(${Math.abs(random - 40)})`);
+		duck.textContent = "🐤"
+		duck.addEventListener('click', () => {
+			foundDuck = true;
+			QUACK.play();
+			OVERLAY.style.display = "block";
+			POPUP.style.display = "flex";
+			TOIN.style.display = "flex";
+			clickCount = 0;
+			SCORE.textContent += 50;
+			clearInterval(INTERVAL)
+		});
+	}
 	TARGET.textContent = target.textContent;
 
 	// * Action when the user clicks more than 3 times
 
-fieldEmojis.forEach(emoji => {
-	emoji.addEventListener('click', () => {
-		if(emoji.textContent != target.textContent){
-			if(clickCount < 2){
-				INCORRECT.play();
+	fieldEmojis.forEach(emoji => {
+		emoji.addEventListener('click', () => {
+			if(emoji.textContent != duck.textContent){
+				if (emoji.textContent != target.textContent) {
+					if (clickCount < 2) {
+						INCORRECT.play();
+					}
+					clickCount++;
+				}
+				if (clickCount >= 3) {
+					FAIL.play();
+					OVERLAY.style.display = "block";
+					POPUP.style.display = "flex";
+					CLICK3.style.display = "flex";
+					clickCount = 0;
+					SCORE.textContent = 0;
+					clearInterval(INTERVAL)
+				}
 			}
-			clickCount++;
-		}
-		if (clickCount >= 3) {
-			FAIL.play();
-			OVERLAY.style.display = "block";
-			POPUP.style.display = "flex";
-			CLICK3.style.display = "flex";
-			clickCount = 0;
-			SCORE.textContent = 0;
-			clearInterval(INTERVAL)
-		}
-	})
-});
+		})
+	});
+	
 }
+
 
 Play();
 
@@ -162,7 +184,7 @@ const CLICK3 = document.querySelector("#click3");
 
 // * Action when the time is up
 
-let timeLeft = 30;
+let timeLeft = 5000;
 TIMER.textContent = timeLeft;
 
 function updateTimer() {
@@ -188,21 +210,23 @@ const DIFFICULT = document.querySelectorAll(".difficult");
 
 EASY.forEach(element => {
 	element.addEventListener('click', () => {
-	
+
 		// * Clear the field
 		const PARAGRAPHS = FIELD.querySelectorAll("p");
 		PARAGRAPHS.forEach(p => {
 			p.remove();
 		});
-	
+
 		// * Clear the popups
 		OVERLAY.style.display = "none";
 		POPUP.style.display = "none";
 		FOUND.style.display = "none";
 		CLICK3.style.display = "none";
 		TIMEUP.style.display = "none";
-	
+		TOIN.style.display = "none";
+
 		// * Set timer and play
+		level = 1;
 		clickCount = 0;
 		timeLeft = 10;
 		TIMER.textContent = timeLeft;
@@ -213,21 +237,23 @@ EASY.forEach(element => {
 
 NORMAL.forEach(element => {
 	element.addEventListener('click', () => {
-	
+
 		// * Clear the field
 		const PARAGRAPHS = FIELD.querySelectorAll("p");
 		PARAGRAPHS.forEach(p => {
 			p.remove();
 		});
-	
+
 		// * Clear the popups
 		OVERLAY.style.display = "none";
 		POPUP.style.display = "none";
 		FOUND.style.display = "none";
 		CLICK3.style.display = "none";
 		TIMEUP.style.display = "none";
-	
+		TOIN.style.display = "none";
+
 		// * Set timer and play
+		level = 2;
 		clickCount = 0;
 		timeLeft = 5;
 		TIMER.textContent = timeLeft;
@@ -238,21 +264,23 @@ NORMAL.forEach(element => {
 
 DIFFICULT.forEach(element => {
 	element.addEventListener('click', () => {
-	
+
 		// * Clear the field
 		const PARAGRAPHS = FIELD.querySelectorAll("p");
 		PARAGRAPHS.forEach(p => {
 			p.remove();
 		});
-	
+
 		// * Clear the popups
 		OVERLAY.style.display = "none";
 		POPUP.style.display = "none";
 		FOUND.style.display = "none";
 		CLICK3.style.display = "none";
 		TIMEUP.style.display = "none";
-	
+		TOIN.style.display = "none";
+
 		// * Set timer and play
+		level = 3;
 		clickCount = 0;
 		timeLeft = 3;
 		TIMER.textContent = timeLeft;
