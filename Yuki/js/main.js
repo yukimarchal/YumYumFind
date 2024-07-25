@@ -1,5 +1,5 @@
 //Au tout début de votre jeu, avec votre nom à la place du miens
-Session.createIfNotExists("yuki")
+Session.createIfNotExists("yuki");
 
 // * Registering emojis
 let emojis = [
@@ -64,7 +64,6 @@ const POPUP = document.querySelector("#popUp");
 const TOIN = document.querySelector("#toin");
 const QUACK = document.querySelector("#quack");
 const BEST = document.querySelector("#best");
-let foundDuck = false;
 let fieldEmojis;
 let target;
 let duck;
@@ -130,24 +129,24 @@ function Play() {
 		FOUND.style.display = "flex";
 		clickCount = 0;
 		SCORE.textContent = parseInt(SCORE.textContent) + level;
-		if(SCORE.textContent > BEST.textContent){
+		if (SCORE.textContent > BEST.textContent) {
 			BEST.textContent = SCORE.textContent;
 		}
 	})
-	if (!foundDuck) {
+	console.log(Session.get("yuki"))
+	if (Session.get("yuki") === "false") {
 		duck = document.querySelector(`#field p:nth-child(${Math.abs(random - 40)})`);
 		duck.textContent = "🐤"
+
 		duck.addEventListener('click', () => {
-			foundDuck = true;
-			//Quand le joueur a trouvé le canard, , avec votre nom à la place du miens
-Session.win("yuki")
+			Session.win("yuki");
 			QUACK.play();
 			OVERLAY.style.display = "block";
 			POPUP.style.display = "flex";
 			TOIN.style.display = "flex";
 			clickCount = 0;
 			SCORE.textContent = parseInt(SCORE.textContent) + 30;
-			if(SCORE.textContent > BEST.textContent){
+			if (SCORE.textContent > BEST.textContent) {
 				BEST.textContent = SCORE.textContent;
 			}
 			clearInterval(INTERVAL)
@@ -159,7 +158,7 @@ Session.win("yuki")
 
 	fieldEmojis.forEach(emoji => {
 		emoji.addEventListener('click', () => {
-			if(emoji.textContent != duck.textContent){
+			if (emoji.textContent != duck.textContent) {
 				if (emoji.textContent != target.textContent) {
 					if (clickCount < 2) {
 						INCORRECT.play();
@@ -178,7 +177,7 @@ Session.win("yuki")
 			}
 		})
 	});
-	
+
 }
 
 
