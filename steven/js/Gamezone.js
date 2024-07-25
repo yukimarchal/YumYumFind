@@ -17,7 +17,7 @@ export class GameZone {
         this.player = player
         this.monsters = monsters
         this.keys = []
-        this.chest = new Chest(14,3)
+        this.chest = new Chest(11,3)
 
         this.monsters.forEach((m) => {
             let key = new Key()
@@ -179,7 +179,6 @@ export class GameZone {
         else if (e.keyCode === 77 && GameZone.endOfGame){
             window.location.href = "../"
         }
-        console.log(e)
     }
 
     static #newMessage = (msg) => {

@@ -54,15 +54,15 @@ window.gobelin = gobelin
 window.slime = slime
 window.grid = false
 
-joueur.x = 14
-joueur.y = 34
+joueur.x = 11
+joueur.y = 17
 joueur.direction = "right"
 
-gobelin.x = 2
-gobelin.y = 22
+gobelin.x = 1
+gobelin.y = 15
 
-slime.x = 15
-slime.y = 14
+slime.x = 21
+slime.y = 12
 slime.direction = "left"
 
 window.addEventListener('load', () => {

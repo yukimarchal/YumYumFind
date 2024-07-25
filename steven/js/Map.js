@@ -55,7 +55,10 @@ export class Map {
     }
 
     wallIsPresent(x,y) {
-        return this.collision[y][x]
+        let isWall = this.collision[y][x]
+        console.log(isWall)
+        if (isWall === undefined) return true
+        return isWall
     }
 
     update() {
