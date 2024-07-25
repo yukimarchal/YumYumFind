@@ -1,20 +1,30 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: cadetblue;
+}
+
+
 #plateau {
-    width: 320px;
-    height: 320px;
+    width: 800px;
+    height: 800px;
     display: flex;
     flex-wrap: wrap;
 }
 
 .carre {
-    width: 40px;
-    height: 40px;
+    width: 100px;
+    height: 100px;
     position: relative;
 }
 
 .carre svg {
-    height: 30px;
-    width: 30px;
-    margin: 5px;
+    height: 65px;
+    width: 65px;
+    margin: 15px;
     position: relative;
     z-index: -9;
 }
@@ -24,7 +34,7 @@ path {
     z-index: -10;
 }
 
-.pieces{
+.pieces {
     position: relative;
     z-index: 9;
 }
@@ -42,5 +52,8 @@ path {
 }
 
 .white {
-    fill:  white;
+    fill: white;
+}
+.yellow {
+    fill: yellow;
 }

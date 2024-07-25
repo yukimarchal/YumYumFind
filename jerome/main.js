@@ -8,12 +8,14 @@ const placePieces = [
     Pion, Pion, Pion, Pion, Pion, Pion, Pion, Pion,
     '', '', '', '', '', '', '', '',
     '', '', '', '', '', '', '', '',
-    '', '', '', '', '', '', '', '',
+    '', '', '', '', Duck, '', '', '',
     '', '', '', '', '', '', '', '',
     Pion, Pion, Pion, Pion, Pion, Pion, Pion, Pion,
     Tour, Cavalier, Fou, Reine, Roi, Fou, Cavalier, Tour
 ]
 
+let canardDeplace = false
+let pieceDeplace = false
 let playerJoue = 'black'
 affichJoueur.textContent = 'black'
 
@@ -35,6 +37,9 @@ function affichPlateau() {
         }
         if (i >= 48 && carre.firstChild) {
             carre.firstChild.firstChild.classList.add('white')
+        }
+        if (i === 36 && carre.firstChild) {
+            carre.firstChild.firstChild.classList.add('yellow') 
         }
         plaTeau.append(carre)
     })
@@ -71,17 +76,30 @@ function coupJouer(e) {
     const premierJoueur = playerJoue === 'white' ? 'black' : 'white'
     const coupPris = e.target.firstChild?.classList.contains(premierJoueur)
 
-    if (coupCorrect) {
+    if (coup.id === 'Duck') {
+        if(pieceDeplace && valid && !e.target.firstChild) {
+            e.target.append(coup)
+            canardDeplace = true
+            if (canardDeplace) {
+                joueurSuivant()
+            } return
+        }else {
+            infoAffich.textContent = "Vous ne pouvez pas joué ce coup"
+            setTimeout (() => infoAffich.textContent = "", 2000)
+            return;
+        }
+    }
+    if (coupCorrect && !pieceDeplace) {
 
         if (coupPris && valid) {
             e.target.parentNode.append(coup)
             e.target.remove()
             echecetmat()
-            joueurSuivant()
+            pieceDeplace = true
             return;
         }
         if (pris && !coupPris) {
-            infoAffich.textContent = "non non non"
+            infoAffich.textContent = "Vous ne pouvez pas joué ce coup"
             setTimeout (() => infoAffich.textContent = "", 2000)
             return;
         }
@@ -89,7 +107,7 @@ function coupJouer(e) {
         if (valid) {
             e.target.append(coup)
             echecetmat()
-            joueurSuivant()
+            pieceDeplace = true
             return;
         }
     }
@@ -132,35 +150,35 @@ function coupPossible(target) {
             if (
                 positionInit + width + 1 === cibleId ||
                 positionInit + width * 2 + 2 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild ||
-                positionInit + width * 3 + 3 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild ||
-                positionInit + width * 4 + 4 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild ||
-                positionInit + width * 5 + 5 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild ||
-                positionInit + width * 6 + 6 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 + 6}"]`).firstChild ||
-                positionInit + width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 + 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 7 + 7}"]`).firstChild ||
+                positionInit + width * 3 + 3 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild ||
+                positionInit + width * 4 + 4 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild ||
+                positionInit + width * 5 + 5 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild ||
+                positionInit + width * 6 + 6 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild ||
+                positionInit + width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 + 6}"]`).firstChild ||
                 
                 positionInit - width - 1 === cibleId ||
                 positionInit - width - 2 - 2 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild ||
-                positionInit - width * 3 - 3 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild ||
-                positionInit - width * 4 - 4 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild ||
-                positionInit - width * 5 - 5 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 - 5}"]`).firstChild ||
-                positionInit - width * 6 - 6 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 - 6}"]`).firstChild ||
-                positionInit - width * 7 - 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 - 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 7 - 7}"]`).firstChild ||            
+                positionInit - width * 3 - 3 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild ||
+                positionInit - width * 4 - 4 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild ||
+                positionInit - width * 5 - 5 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild ||
+                positionInit - width * 6 - 6 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild ||
+                positionInit - width * 7 - 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 - 6}"]`).firstChild ||            
                 
                 positionInit + width - 1 === cibleId ||
                 positionInit + width * 2 - 2 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild ||
                 positionInit + width * 3 - 3 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild ||
-                positionInit + width * 4 - 4 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild ||
-                positionInit + width * 5 - 5 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild ||
-                positionInit + width * 6 - 6 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 - 6}"]`).firstChild ||
-                positionInit + width * 7 - 7 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 - 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 7 - 7}"]`).firstChild ||
+                positionInit + width * 4 - 4 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild ||
+                positionInit + width * 5 - 5 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild ||
+                positionInit + width * 6 - 6 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild ||
+                positionInit + width * 7 - 7 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 - 6}"]`).firstChild ||
                 
                 positionInit - width + 1 === cibleId ||
                 positionInit - width * 2 + 2 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild ||
-                positionInit - width * 3 + 3 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild ||
-                positionInit - width * 4 + 4 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild ||
-                positionInit - width * 5 + 5 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild ||
-                positionInit - width * 6 + 6 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 + 6}"]`).firstChild ||
-                positionInit - width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 + 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 7 + 7}"]`).firstChild
+                positionInit - width * 3 + 3 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild ||
+                positionInit - width * 4 + 4 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild ||
+                positionInit - width * 5 + 5 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild ||
+                positionInit - width * 6 + 6 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild ||
+                positionInit - width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 + 6}"]`).firstChild
             ) {
                 return true
             } break;
@@ -206,35 +224,35 @@ function coupPossible(target) {
             if(
                 positionInit + width + 1 === cibleId ||
                 positionInit + width * 2 + 2 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild ||
-                positionInit + width * 3 + 3 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild ||
-                positionInit + width * 4 + 4 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild ||
-                positionInit + width * 5 + 5 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild ||
-                positionInit + width * 6 + 6 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 + 6}"]`).firstChild ||
-                positionInit + width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 + 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 7 + 7}"]`).firstChild ||
+                positionInit + width * 3 + 3 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild ||
+                positionInit + width * 4 + 4 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild ||
+                positionInit + width * 5 + 5 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild ||
+                positionInit + width * 6 + 6 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild ||
+                positionInit + width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit + width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 + 6}"]`).firstChild ||
                 
                 positionInit - width - 1 === cibleId ||
                 positionInit - width - 2 - 2 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild ||
-                positionInit - width * 3 - 3 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild ||
-                positionInit - width * 4 - 4 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild ||
-                positionInit - width * 5 - 5 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 - 5}"]`).firstChild ||
-                positionInit - width * 6 - 6 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 - 6}"]`).firstChild ||
-                positionInit - width * 7 - 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 - 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 7 - 7}"]`).firstChild ||            
+                positionInit - width * 3 - 3 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild ||
+                positionInit - width * 4 - 4 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild ||
+                positionInit - width * 5 - 5 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild ||
+                positionInit - width * 6 - 6 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild ||
+                positionInit - width * 7 - 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 - 6}"]`).firstChild ||            
                 
                 positionInit + width - 1 === cibleId ||
                 positionInit + width * 2 - 2 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild ||
                 positionInit + width * 3 - 3 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild ||
-                positionInit + width * 4 - 4 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild ||
-                positionInit + width * 5 - 5 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild ||
-                positionInit + width * 6 - 6 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 - 6}"]`).firstChild ||
-                positionInit + width * 7 - 7 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 - 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 7 - 7}"]`).firstChild ||
+                positionInit + width * 4 - 4 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild ||
+                positionInit + width * 5 - 5 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild ||
+                positionInit + width * 6 - 6 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild ||
+                positionInit + width * 7 - 7 === cibleId && !document.querySelector(`[carre-id="${positionInit + width - 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 2 - 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 3 - 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 4 - 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 5 - 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit + width * 6 - 6}"]`).firstChild ||
                 
                 positionInit - width + 1 === cibleId ||
                 positionInit - width * 2 + 2 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild ||
-                positionInit - width * 3 + 3 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild ||
-                positionInit - width * 4 + 4 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild ||
-                positionInit - width * 5 + 5 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild ||
-                positionInit - width * 6 + 6 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 + 6}"]`).firstChild ||
-                positionInit - width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 + 6}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 7 + 7}"]`).firstChild ||
+                positionInit - width * 3 + 3 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild ||
+                positionInit - width * 4 + 4 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild ||
+                positionInit - width * 5 + 5 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild ||
+                positionInit - width * 6 + 6 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild ||
+                positionInit - width * 7 + 7 === cibleId && !document.querySelector(`[carre-id="${positionInit - width + 1}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 2 + 2}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 3 + 3}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 4 + 4}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 5 + 5}"]`).firstChild && !document.querySelector(`[carre-id="${positionInit - width * 6 + 6}"]`).firstChild ||
 
                 positionInit + width === cibleId ||
                 positionInit + width * 2 === cibleId && !document.querySelector(`[carre-id="${positionInit + width}"]`).firstChild ||
@@ -284,8 +302,15 @@ function coupPossible(target) {
                 positionInit - width - 1 === cibleId 
             ) {
                 return true;
-            }
+            } break
 
+        case 'Duck' : 
+            if(
+                !target.firstChild || target.firstChild.id === 'Duck')
+            {
+                return true
+            } break
+        
     }
 }
 
@@ -300,6 +325,8 @@ function joueurSuivant() {
         playerJoue = "black"
         affichJoueur.textContent = 'black'
     }
+    canardDeplace = false
+    pieceDeplace = false
 }
 
 function reverseIds() {
