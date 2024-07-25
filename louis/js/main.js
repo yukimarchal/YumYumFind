@@ -6,8 +6,18 @@ const GAMEOVER = document.querySelector(".life")
 let score =0
 let time = 1000
 let life = 5
+let timeout = 3000
 const SOUND = new Audio("/louis/images/bonk.mp3")
 const SOUNCAWK = new Audio("/louis/images/duck-quack.mp3")
+Session.createIfNotExists("louis")
+
+
+
+
+
+
+
+
 
 function speedtime (time){
 
@@ -68,12 +78,14 @@ function run(){
             if (choiseimg != 3){
                 score += 10
 
-                SCOREEL.textContent = score
             }else{
+                score -=10
                 life -=1
-
+                console.log("toucher")
+                
             }
             time -=10
+            SCOREEL.textContent = score
             LIFEPOINT.textContent = life
             choiximg(choiseimg)
             clearTimeout(timer)
@@ -96,9 +108,15 @@ function run(){
 
     timer = setTimeout(() => {
         hole.removeChild(img)
-        if(life != 0){
+        if(life != 0 &&  timeout > 0 ){
+            timeout -= 100
+            console.log(timeout)
             run()
 
+        }else if (timeout === 0 && life > 0){
+
+            GAMEOVER.textContent ='patie terminer ! '
+            Session.win("louis")
         }else{
             GAMEOVER.textContent ='GAME OVER !'
         }
