@@ -376,16 +376,19 @@ function echecetmat() {
     const kings = Array.from(document.querySelectorAll('#Roi'))
     console.log('kings')
     if (!kings.some(king => king.firstChild.classList.contains('white'))) {
-        infoAffich.innerHTML = "Les noirs ont gagnés !!!"
+        infoAffich.textContent = "Les noirs ont gagnés !!!"
+        setTimeout (() => infoAffich.textContent = "", 2000)
         const allCarres = document.querySelectorAll('.carre')
         allCarres.forEach(carre => carre.firstChild?.setAttribute('draggable', false))
-
+        location.reload()
         Session.win('jerome')
     }
     if (!kings.some(king => king.firstChild.classList.contains('black'))) {
-        infoAffich.innerHTML = "Les blancs ont gagnés !!!"
+        infoAffich.textContent ="Les blancs ont gagnés !!!"
+        setTimeout (() => infoAffich.textContent = "", 2000)
         const allCarres = document.querySelectorAll('.carre')
         allCarres.forEach(carre => carre.firstChild?.setAttribute('draggable', false))
+        location.reload()
         Session.win('jerome')
     }
 
