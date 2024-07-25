@@ -154,6 +154,22 @@ function coupPossible(target) {
             ) {
             return true;
             }
+            if (
+                playerJoue === 'white' &&
+                (positionInit - width + 1 === cibleId || positionInit - width - 1 === cibleId) &&
+                target.firstChild &&
+                target.firstChild.classList.contains('black')
+            ) {
+                return true;
+            }
+            if (
+                playerJoue === 'black' &&
+                (positionInit + width + 1 === cibleId || positionInit + width - 1 === cibleId) &&
+                target.firstChild &&
+                target.firstChild.classList.contains('white')
+            ) {
+                return true;
+            }
             break;
         case 'Cavalier' :
             if(
