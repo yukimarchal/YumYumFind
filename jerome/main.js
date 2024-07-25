@@ -14,6 +14,9 @@ const placePieces = [
     Tour, Cavalier, Fou, Reine, Roi, Fou, Cavalier, Tour
 ]
 
+Session.createIfNotExists('jerome')
+
+
 let canardDeplace = false
 let pieceDeplace = false
 let playerJoue = 'black'
@@ -376,11 +379,15 @@ function echecetmat() {
         infoAffich.innerHTML = "Les noirs ont gagnés !!!"
         const allCarres = document.querySelectorAll('.carre')
         allCarres.forEach(carre => carre.firstChild?.setAttribute('draggable', false))
+
+        Session.win('jerome')
     }
     if (!kings.some(king => king.firstChild.classList.contains('black'))) {
         infoAffich.innerHTML = "Les blancs ont gagnés !!!"
         const allCarres = document.querySelectorAll('.carre')
         allCarres.forEach(carre => carre.firstChild?.setAttribute('draggable', false))
+        Session.win('jerome')
     }
+
 }
 
