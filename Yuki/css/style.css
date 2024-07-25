@@ -1,10 +1,10 @@
 @font-face {
 	font-family: Caveat;
-	src: url("./caveat/Caveat-VariableFont_wght.ttf");
+	src: url("../caveat/Caveat-VariableFont_wght.ttf");
 }
 
 body {
-	background-image: url("./sky-7232494_640.webp");
+	background-image: url("../background/sky-7232494_640.webp");
 	background-repeat: no-repeat;
 	background-size: cover;
 	font-family: Caveat;
@@ -49,7 +49,7 @@ body {
 #popUp {
 	display: none;
 	/* found, click3, timeUp */
-	background-image: url("./1368560.png");
+	background-image: url("../background/1368560.png");
 	font-size: 20px;
 	background-repeat: no-repeat;
 	background-size: 400px;
@@ -146,7 +146,7 @@ body {
 
 	#title {
 		font-size: 28px;
-		background-image: url("./sky-7232494_640.webp");
+		background-image: url("../background/sky-7232494_640.webp");
 		color: black;
 		border-style: solid;
 		border-color: black;
@@ -206,7 +206,7 @@ body {
 		&>div:nth-child(1) {
 			display: flex;
 			justify-content: center;
-			background-image: url("./speechBubble/Group.svg");
+			background-image: url("../speechBubble/Group.svg");
 			background-repeat: no-repeat;
 			background-size: 144px;
 			height: 75px;
