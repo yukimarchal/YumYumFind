@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="./canard/tanard_chanard_v02.ico" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="./css/style.css">
+	<script src="./js/Commun.js" defer></script>
+	<script src="./js/main.js" defer></script>
+	<title>YumYumFind</title>
+</head>
+
+<body>
+	<header>
+    <!-- <img src="../assets/logo_tanard.png" alt=""> -->
+		<img src="./canard/tanard_chanard_outlined.png" alt="">
+    <nav>
+        <ul>
+            <li><a href="/">Hero VS Monsters</a></li>
+            <li><a href="/">DuckChess</a></li>
+            <li><a href="/">Yum Yum Find</a></li>
+            <li><a href="/">Tape Code Game</a></li>
+        </ul>
+    </nav>
+</header>
+
+	<section id="overlay"></section>
+		<section id="popUp">
+			<div id="found">
+				<p>You found it!</p>
+				<p>Myum myum 😋</p>
+				<p>Choose the difficulty and play again!</p>
+				<div class="difficulty">
+					<button class="easy">Easy</button>
+					<button class="normal">Normal</button>
+					<button class="difficult">Difficult</button>
+				</div>
+			</div>
+			<div id="click3">
+				<p>Too many clicks! Gurrrrrrr</p>
+				<p>Those are not what I want 😡</p>
+				<p>Choose the difficulty and play again!</p>
+				<div class="difficulty">
+					<button class="easy">Easy</button>
+					<button class="normal">Normal</button>
+					<button class="difficult">Difficult</button>
+				</div>
+			</div>
+			<div id="timeUp">
+				<p>Time's up! Gurrrrrrr</p>
+				<p>I'm hungryyyyyyy 😡</p>
+				<p>Choose the difficulty and play again!</p>
+				<div class="difficulty">
+					<button class="easy">Easy</button>
+					<button class="normal">Normal</button>
+					<button class="difficult">Difficult</button>
+				</div>
+			</div>
+			<div id="toin">
+				<p>Toin toin! You found me <img src="./canard/tanard_chanard_outlined.png" alt=""></p>
+				<p>"Chanard" gave you 30 points!</p>
+				<p>Choose the difficulty and play again!</p>
+				<div class="difficulty">
+					<button class="easy">Easy</button>
+					<button class="normal">Normal</button>
+					<button class="difficult">Difficult</button>
+			</div>
+	</section>
+	<section id="main">
+		<section id="game">
+			<div id="gamebox">
+				<p id="title">YumYumFind</p>
+				<div id="field">
+				</div>
+			</div>
+		</section>
+		<section id="info">
+			<div id="cat">
+				<img src="./hungry cat/IMG_2818.PNG" alt="hungry cat">
+			</div>
+			<div id="speechBubble_timer">
+				<div>
+					<p id="targetEmoji"></p>
+					<audio id="yay" src="./audio/yay-6120.mp3"></audio>
+					<audio id="incorrect" src="./audio/notification-sound-error-sound-effect-203788.mp3"></audio>
+					<audio id="fail" src="./audio/cat growl.mp3"></audio>
+					<audio id="quack" src="./audio/duck-quack-112941.mp3"></audio>
+				</div>
+				<div>
+					<p>You have <span id="timer"></span>s</p>
+					<p>...before the cat gets angry</p>
+					<p>______________________</p>
+					<p>Your score : <span id="score">0</span></p>
+					<p>Your best score : <span id="best">0</span></p>
+				</div>
+			</div>
+		</section>
+	</section>
+	<footer>
+		<section id="footer"></section>
+	</footer>
+</body>
+
+</html>

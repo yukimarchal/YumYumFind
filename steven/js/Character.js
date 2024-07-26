@@ -1,112 +1,129 @@
-import { GameZone } from "./Gamezone.js";
+import {GameZone} from "./Gamezone.js";
+import {EnnemiesHealthBar} from "./EnnemiesHealthBar.js";
+import {De} from "./De.js";
 
-const ATTACK = "attack"
-const HIT = "hit"
-const IDLE = "idle"
-const WALK = "walk"
+export const ATTACK = "attack"
+export const DEATH = "death"
+export const HIT = "hit"
+export const IDLE = "idle"
+export const WALK = "walk"
 
 export class Character {
-    sprites= {
-        "idle": {
-            "front": "assets/sprite/idle/front.svg",
-            "back" : "assets/sprite/idle/back.svg",
-            "left" : "assets/sprite/idle/left.svg",
-            "right": "assets/sprite/idle/right.svg",
-        },
-        "walk" : {
-            "front": "assets/sprite/walk/front.svg",
-            "back" : "assets/sprite/walk/back.svg",
-            "left" : "assets/sprite/walk/left.svg",
-            "right": "assets/sprite/walk/right.svg",
-        },
-        "attack": {
-            "front": "assets/sprite/attack/front.svg",
-            "back" : "assets/sprite/attack/back.svg",
-            "left" : "assets/sprite/attack/left.svg",
-            "right": "assets/sprite/attack/right.svg",
-        },
-        "hit": {
-            "front": "assets/sprite/hit/front.svg",
-            "back" : "assets/sprite/hit/back.svg",
-            "left" : "assets/sprite/hit/left.svg",
-            "right": "assets/sprite/hit/right.svg",
-        }
-    }
+    endurance = 0
+    force = 0
+
+    hp = 10
+    maxhp = this.hp
+
+    x = 0
+    y = 0
+
+    direction = "right"
+    action = IDLE
+    cpt = 0
+
+    health_corr_x = 0
+    health_corr_y = 0
+
+    longueur_sprite = 64
+    hauteur_sprite = 64
+
+    sprites = undefined
+    healthbar = EnnemiesHealthBar
 
     constructor() {
-        this.maxhp = 11
-        this.hp = this.maxhp
-        this.x = 14
-        this.y = 34
-        this.cpt = 0
-
-        this.lastmovement = "front"
-        this.action = IDLE
-
-        for (let category in this.sprites) {
-            for (let direction in this.sprites[category]) {
-                let path = this.sprites[category][direction]
-                let tmp = new Image()
-                tmp.src = path
-                this.sprites[category][direction] = tmp
-            }
-        }
-        window.sprites = this.sprites
+        this.endurance = this.sommeMeilleursLances(De.SixFace.QuatreLance()) + 5;
+        this.force = this.sommeMeilleursLances(De.QuatreFace.QuatreLance());
+        this.hp = this.maxhp = this.applyModificator(this.endurance);
     }
 
-    update() {
+    sommeMeilleursLances = (l,nb = 3) => {
+        l.sort((a, b) => a - b)
+        return l.slice(-nb).reduce((acc, val) => acc + val, 0)
+    }
+
+    applyModificator = (statBase) => {
+        switch(true){
+            case statBase < 5: return statBase - 1
+            case statBase < 10: return statBase + 0
+            case statBase < 15: return statBase + 1
+            default: return statBase + 2;
+        }
+    }
+
+    loadSprites = () => {
+        if (this.sprites !== undefined) {
+            for (let category in this.sprites) {
+                for (let direction in this.sprites[category]) {
+                    if (this.sprites[category][direction] !== undefined) {
+                        let tmp = new Image()
+                        tmp.src = this.sprites[category][direction]
+                        this.sprites[category][direction] = tmp
+                    }
+                }
+            }
+        }
+    }
+
+    drawImage = (image, x, y, isHealthBar = false ) => {
         let ctx = GameZone.context
-        let nbframe = this.sprites[this.action]["front"].width/64
 
-        let correction_position_x = -24
-        let correction_position_y = -32
+        let nbframe = this.sprites[this.action]["right"].width/this.longueur_sprite
 
-        let position_x = Math.floor(Math.floor((GameZone.canvas.width / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel + correction_position_x
-        let position_y = Math.floor(Math.floor((GameZone.canvas.height / GameZone.scale) / 2) / GameZone.pixel) * GameZone.pixel + correction_position_y
-
-        let longueur_sprite = 64
-        let hauteur_sprite = 64
-
-        let debut_sprite_x = 64*(this.cpt%nbframe)
+        let debut_sprite_x = this.longueur_sprite*(this.cpt%nbframe)
         let debut_sprite_y = 0
 
-        ctx.drawImage(this.sprites[this.action][this.lastmovement], debut_sprite_x, debut_sprite_y, longueur_sprite, hauteur_sprite, position_x, position_y, longueur_sprite, hauteur_sprite)
-        this.cpt++
+        ctx.drawImage(image, debut_sprite_x, debut_sprite_y, this.longueur_sprite, this.hauteur_sprite, x, y, this.longueur_sprite, this.hauteur_sprite)
+        if (isHealthBar) this.healthbar.update(this.maxhp, this.hp,x+this.health_corr_x,y+this.health_corr_y)
+
+        //(Continue les animations tant que l'animation de mort n'est pas termine)
+        if (!(this.action === DEATH && this.cpt%nbframe === nbframe-1))
+            this.cpt++
 
         if ((this.action === ATTACK || this.action === HIT) && this.cpt%nbframe === nbframe-1) {
             this.stopaction()
         }
     }
 
-
-    move(dx,dy) {
-        if (this.action === ATTACK || this.action === HIT) return
-
-        this.action = WALK
-        this.x += dx;
-        this.y += dy;
-
-        if (dx < 0)
-            this.lastmovement = "left"
-        else if (dx > 0)
-            this.lastmovement = "right"
-        else if (dy < 0)
-            this.lastmovement = "back"
-        else if (dy > 0)
-            this.lastmovement = "front"
+    coordAttack  = () => {
+        let x = this.x, y = this.y;
+        if (this.direction === "front")
+            y += 1
+        else if (this.direction  === "back")
+            y -= 1
+        else if (this.direction  === "left")
+            x -= 1
+        else if (this.direction  === "right")
+            x += 1
+        return {x,y}
     }
 
-    attack() {
+    attack = (target = undefined) => {
+        if (this.action === DEATH || this.action === ATTACK || this.action === HIT) return
         this.action = ATTACK
         this.cpt = 0
+
+        if (target !== undefined) {
+            let damage = this.sommeMeilleursLances(De.QuatreFace.QuatreLance(),3) + this.applyModificator(this.force)
+            target.hit(damage)
+        }
     }
 
-    hit() {
-        this.action = HIT
+    hit = (damage = 0) => {
+        if (this.action === DEATH) return
+
+        this.hp -= damage
+        if (this.hp <= 0) {
+            this.action = DEATH
+        }
+        else {
+            this.action = HIT
+        }
         this.cpt = 0
     }
 
-    stopaction() {
+    stopaction = () => {
+        if (this.action === DEATH) return
         this.action = IDLE
     }
 }

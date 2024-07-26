@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html , body {
+    height: 100%;
+}
+
+
+
+body{
+    font-family: Arial, Helvetica, sans-serif ;
+  background-image: url(/louis/images/472446-PGQJKU-584.jpg);
+  background-color: #096743;
+  color: white;
+  overflow: hidden;
+  cursor: none;
+
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.but{
+    padding: 0;
+
+    margin: 0;
+    background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+    transition-duration: 0.4s;
+}
+    
+.but:hover{
+    background-color: #08412c; /* Green */
+    color: white;
+}
+.score{
+    display: flex;
+    justify-content: center;
+    font-size: 4em;
+    margin: .5em;
+}
+
+.life{
+    
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    margin: .5em;
+
+}
+
+.board{
+    height: 600px;
+    width: 600px;
+    /*border: 1px solid red ;*/
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    gap : 80px
+}
+
+.hole{
+    background-color: #77807b;/* couleur des holr ici version dev plus sympa style petit chip */
+    border-radius: 50%;
+    box-shadow: inset 0 10px 0 7px #3f4140,
+                            inset 0 20px  20px 15px #434646,
+                            0px 0px 5px #191a1a ;
+    position: relative;
+    overflow: hidden;
+}
+.hole .logo{
+    width:70% ;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) ;
+    bottom: -10px;
+    animation: rise .3s ease-out;
+}
+@keyframes rise {
+    0%{
+        transform: translateX(-50%) translateY(100%); 
+    }
+    100%{
+        transform: translateX(-50%) translateY(0);
+    }
+    
+}
+
+.cursor{
+    height: 110px;
+    width: 100px;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    
+    background-image: url("/louis/images/hammer.png");
+    background-size: 100% 100%;
+    transform: translate(-20%,-20%);
+
+    transition: transform .1s ;
+
+    pointer-events: none;
+}
+.cursor.active{
+    transform: translate(-20%,-20%) rotate(-45deg);
+}
