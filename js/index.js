@@ -37,3 +37,17 @@ playButton.addEventListener('click', () => {
     window.location.href = images[index].getAttribute("link")
 })
 
+window.addEventListener('load', () => {
+    Session.createIfNotExists("steven")
+    Session.createIfNotExists("yuki")
+    Session.createIfNotExists("louis")
+    Session.createIfNotExists("jerome")
+
+    console.log(Session.get("steven"))
+
+    if (Session.get("steven") === "true" && Session.get("yuki") === "true" && Session.get("louis") === "true" && Session.get("jerome") === "true") {
+        document.body.classList.add("rainbow")
+    }
+
+})
+
