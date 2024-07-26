@@ -14,13 +14,17 @@ body{
   background-image: url(/louis/images/472446-PGQJKU-584.jpg);
   background-color: #096743;
   color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
   cursor: none;
 
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
 }
 
 .but{
