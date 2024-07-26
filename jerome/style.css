@@ -1,0 +1,75 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: cadetblue;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#plateau {
+    width: 640px;
+    height: 640px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.affich {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 10vh;
+}
+
+.carre {
+    width: 80px;
+    height: 80px;
+    position: relative;
+}
+
+.carre svg {
+    height: 55px;
+    width: 55px;
+    margin: 15px;
+    position: relative;
+    z-index: -9;
+}
+
+path {
+    position: relative;
+    z-index: -10;
+}
+
+.pieces {
+    position: relative;
+    z-index: 9;
+}
+
+.chartreuse {
+    background-color: chartreuse;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.black, .black path {
+    fill: black;
+}
+
+.white, .white path {
+    fill: white;
+}
+
+.yellow {
+    fill: yellow;
+}
