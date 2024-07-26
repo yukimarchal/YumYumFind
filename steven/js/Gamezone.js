@@ -49,7 +49,7 @@ export class GameZone {
 
     static resize = () => {
         this.canvas.width = window.innerWidth
-        this.canvas.height = window.innerHeight
+        this.canvas.height = window.innerHeight-80
         this.context.scale(this.scale,this.scale)
     }
 

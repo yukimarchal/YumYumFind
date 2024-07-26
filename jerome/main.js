@@ -156,7 +156,7 @@ function coupPossible(target) {
             }
             if (
                 playerJoue === 'white' &&
-                (positionInit - width + 1 === cibleId || positionInit - width - 1 === cibleId) &&
+                (positionInit + width + 1 === cibleId || positionInit + width - 1 === cibleId) &&
                 target.firstChild &&
                 target.firstChild.classList.contains('black')
             ) {

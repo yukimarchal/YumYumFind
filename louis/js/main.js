@@ -3,7 +3,7 @@ const HOLES = [...document.querySelectorAll(".hole")]
 const SCOREEL = document.querySelector(".score span")
 const LIFEPOINT = document.querySelector(".life span")
 const GAMEOVER = document.querySelector(".life")
-let score =0
+let score = 0
 let time = 1000
 let life = 5
 let timeout = 3000
@@ -12,79 +12,70 @@ const SOUNCAWK = new Audio("/louis/images/duck-quack.mp3")
 Session.createIfNotExists("louis")
 
 
+function speedtime(time) {
 
-
-
-
-
-
-
-function speedtime (time){
-
-    
 
 }
 
-function run(){
+function run() {
     const i = Math.floor(Math.random() * HOLES.length)
     const hole = HOLES[i]
-    const choiseimg =  Math.floor(Math.random() * 4)
+    const choiseimg = Math.floor(Math.random() * 4)
     const img = document.createElement("img")
-    let timer  = null
+    let timer = null
     let canClick = true;
 
-    function choiximg(choiseimg){
-        if(choiseimg === 0){
+    function choiximg(choiseimg) {
+        if (choiseimg === 0) {
             img.classList.add("logo")
             img.src = "/louis/images/css-oof.png"
             SOUND.play()
-        }else if (choiseimg === 1){
+        } else if (choiseimg === 1) {
             img.classList.add("logo")
             img.src = "/louis/images/html-oof.png"
             SOUND.play()
-        }else if (choiseimg === 2){
+        } else if (choiseimg === 2) {
             img.classList.add("logo")
             img.src = "/louis/images/javascript-oof.png"
             SOUND.play()
-        }else if (choiseimg === 3){
+        } else if (choiseimg === 3) {
             img.classList.add("logo")
             img.src = "/louis/images/duck-oof.png"
             SOUNCAWK.play()
         }
-        
+
     }
 
     //* choix des image ici  // 
-    if(choiseimg === 0){
+    if (choiseimg === 0) {
         img.classList.add("logo")
         img.src = "/louis/images/css-3.png"
-    }else if (choiseimg === 1){
+    } else if (choiseimg === 1) {
         img.classList.add("logo")
         img.src = "/louis/images/html-1.png"
-    }else if (choiseimg === 2){
+    } else if (choiseimg === 2) {
         img.classList.add("logo")
         img.src = "/louis/images/javascript-1.png"
-    }else if (choiseimg === 3){
+    } else if (choiseimg === 3) {
         img.classList.add("logo")
         img.src = "/louis/images/duck.png"
     }
-    
 
-    
-    img.addEventListener("click", () =>{
-        
-        if(canClick){
 
-            if (choiseimg != 3){
+    img.addEventListener("click", () => {
+
+        if (canClick) {
+
+            if (choiseimg != 3) {
                 score += 10
 
-            }else{
-                score -=10
-                life -=1
-                
-                
+            } else {
+                score -= 10
+                life -= 1
+
+
             }
-            time -=10
+            time -= 10
             SCOREEL.textContent = score
             LIFEPOINT.textContent = life
             choiximg(choiseimg)
@@ -93,8 +84,8 @@ function run(){
             timer = setTimeout(() => {
                 hole.removeChild(img)
                 run()
-            },400)
-            
+            }, 400)
+
         }
 
     })
@@ -102,45 +93,35 @@ function run(){
 
     setTimeout(() => {
         canClick = false;
-     }, time); // coupe le click en 1sec 
+    }, time); // coupe le click en 1sec
 
-     
 
     timer = setTimeout(() => {
         hole.removeChild(img)
-        if(life != 0 &&  timeout > 0 ){
+        if (life != 0 && timeout > 0) {
             timeout -= 100
             console.log(timeout)
             run()
 
-        }else if (timeout === 0 && life > 0){
+        } else if (timeout === 0 && life > 0) {
 
-            GAMEOVER.textContent ='Partie terminée !'
+            GAMEOVER.textContent = 'Partie terminée !'
             Session.win("louis")
-        }else{
-            GAMEOVER.textContent ='GAME OVER !'
+        } else {
+            GAMEOVER.textContent = 'GAME OVER !'
         }
-        
-    },time)// ici pour chnager le temps des appartision du logo 
+
+    }, time)// ici pour chnager le temps des appartision du logo
 
 }
 
 
+//*  init fonction et jeux
 
-
-
-
-
-
-
-
-
-//*  init fonction et jeux 
-
-if (life >0){
-console.log("ouais c'est michel ")
+if (life > 0) {
+    console.log("ouais c'est michel ")
     run()
-}else{
+} else {
     GAMEOVER.textContent = "GAME OVER !"
 }
 
@@ -154,11 +135,11 @@ window.addEventListener("mousemove", e => {
 
 //* mouvement du marteaux appel 
 
-window.addEventListener("mousedown", () =>{
- CURSOR.classList.add("active")
+window.addEventListener("mousedown", () => {
+    CURSOR.classList.add("active")
 })
 
-window.addEventListener("mouseup", () =>{
+window.addEventListener("mouseup", () => {
     CURSOR.classList.remove("active")
-   })
+})
 
