@@ -1,0 +1,148 @@
+.menu-commun{
+	height: 80px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	background: rgb(255,215,0);
+	background: linear-gradient(90deg, rgba(255,215,0,1) 31%, rgba(255,203,0,1) 57%);
+	font-family: "Roboto", sans-serif;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+.menu-commun > .tanard-logo {
+	height: 60px;
+	width: auto;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+.menu-commun > p {
+	display: none;
+}
+.menu-smartphone{
+	display: none;
+}
+
+.menu-commun > nav > ul {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	list-style-type: none;
+	gap: 4rem;
+	padding: 0;
+	margin: 0;
+}
+
+.menu-commun > nav > ul > li > a {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	font-size: 1.2rem;
+	padding: 0.5rem 1rem;
+	border: 2px solid transparent;
+	border-radius: 15px;
+	transition: all 0.3s ease;
+}
+
+.menu-commun > nav > ul > li > a:hover {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.2);
+	border-color: rgba(0, 0, 0, 0.2);
+}
+
+.menu-commun > nav > ul > li > a:active {
+	background-color: rgba(0, 0, 0, 0.4);
+	border-color: rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (max-width: 1024px){
+	.menu-commun {
+		height: 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: rgb(255,215,0);
+		background: linear-gradient(90deg, rgba(255,215,0,1) 31%, rgba(255,203,0,1) 57%);
+		font-family: "Roboto", sans-serif;
+		box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+	
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 10;
+	}
+	.menu-smartphone{
+		display: flex;
+	}
+	.menu-commun > .menu-pc{
+		display: none;
+	}
+	.menu-commun > .tanard-logo {
+		height: 25px;
+		width: auto;
+		margin-left: 30px;
+	}
+
+	.menu-smartphone > .hamburger{
+		height: 25px;
+		position: fixed;
+		top: 12px;
+		right: 20px;
+		z-index: 11;
+		cursor: pointer;
+
+		&:hover .menu-smartphone-list{
+			opacity: 1;
+		}
+	.menu-smartphone > nav{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		background-color: rgb(80, 80, 80);
+		color: white;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 0;
+		opacity: 0;
+		transition: opacity 0.15s;
+		}
+	}
+	.menu-smartphone > nav > ul{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		list-style-type: none;
+		padding-left: 0;
+	}
+	.menu-smartphone > nav > ul > li{
+		margin-bottom: 50px;
+	} 
+	.menu-smartphone > nav > ul > li > a{
+		color: white;
+		font-family: "Roboto";
+		font-size: 20px;
+		&:link{
+			text-decoration: none;
+		}
+		&:visited{
+			text-decoration: none;
+		}
+		&:hover{
+			text-decoration: none;
+		}
+		&:active{
+			text-decoration: none;
+		}
+	}
+}
