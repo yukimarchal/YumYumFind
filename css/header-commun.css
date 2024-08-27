@@ -103,7 +103,7 @@
 	}
 
 	.menu-smartphone-list {
-		display: none;
+		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
@@ -115,13 +115,14 @@
 		left: 0;
 		right: 0;
 		z-index: 99;
-		/* opacity: 0;
-		transition: opacity 3s; */
+		opacity: 0;
+		transition: opacity 0.15s ease-in;
+		visibility: hidden;
 	}
 
 	.menu-smartphone:hover .menu-smartphone-list {
-		/* opacity: 1; */
-		display: flex;
+		opacity: 1;
+		visibility: visible;
 	}
 
 	.menu-smartphone>nav>ul {
